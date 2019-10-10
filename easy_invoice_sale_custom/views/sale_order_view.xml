@@ -1,0 +1,117 @@
+<odoo>
+  <data>
+
+
+
+    <record id="base_sale_order_form_inherit" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="name">Sale Order Inherit</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']"  position="attributes">
+                <attribute name="readonly">context.get('uid', False) not in [1]</attribute>
+            </xpath>
+
+          <!--   OCULTAR LOS CAMPOS Q NO SON REQUERIDOS  context.get('uid', False) not in [1] -->
+            <xpath expr="//button[@name='action_quotation_send']" position="attributes">
+                <attribute name="invisible">context.get('uid', False) not in [1]</attribute>
+            </xpath>
+            <xpath expr="//button[@name='print_quotation']" position="attributes">
+                <attribute name="invisible">context.get('uid', False) not in [1]</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_done']" position="attributes">
+                <attribute name="invisible">context.get('uid', False) not in [1]</attribute>
+            </xpath>
+
+
+
+            <xpath expr="//field[@name='pricelist_id']" position="attributes">
+                <attribute name="invisible">context.get('uid', False) not in [1]</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='confirmation_date']" position="attributes">
+                <attribute name="invisible">context.get('uid', False) not in [1]</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='payment_term_id']" position="attributes">
+                <attribute name="invisible">context.get('uid', False) not in [1]</attribute>
+            </xpath>
+            <xpath expr="//field[@name='validity_date']" position="attributes">
+                <attribute name="invisible">context.get('uid', False) not in [1]</attribute>
+            </xpath>
+
+            <xpath expr="//group[@name='sales_person']" position="attributes">
+                <attribute name="invisible">context.get('uid', False) not in [1]</attribute>
+            </xpath>
+            <xpath expr="//group[@name='sale_pay']" position="attributes">
+                <attribute name="invisible">context.get('uid', False) not in [1]</attribute>
+            </xpath>
+            <xpath expr="//group[@name='technical']" position="attributes">
+                <attribute name="invisible">context.get('uid', False) not in [1]</attribute>
+            </xpath>
+
+            <xpath expr="//page[2]" position="attributes">
+                <attribute name="invisible">context.get('uid', False) not in [1]</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="view_order_form_inherit_sale_stock_inherit" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="name">Sale Order Inherit</field>
+        <field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//group[@name='sale_shipping']" position="attributes">
+                <attribute name="invisible">context.get('uid', False) not in [1]</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="cost_center_sale_order_form_inherit" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="name">Sale Order Inherit</field>
+        <field name="inherit_id" ref="easy_invoice_cost_center_relation.sale_order_form_inherit" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='cost_center_id']" position="attributes">
+                <attribute name="invisible">context.get('uid', False) not in [1]</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    
+
+                <!--    <page string="Other Information">
+                            <group>
+                                <group string="Sales Information" name="sales_person">
+                                    <field name="user_id"/>
+                                    <field name="team_id" options="{'no_create': True}"/>
+                                    <field name="client_order_ref"/>
+                                    <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                                    <field name="analytic_account_id" context="{'default_partner_id':partner_invoice_id, 'default_name':name}" attrs="{'readonly': ['|',('analytic_account_id','!=',False),('invoice_count','!=',0),('state','=','sale')]}" groups="analytic.group_analytic_accounting" force_save="1"/>
+                                </group>
+                                <group name="sale_pay" string="Invoicing">
+                                    <field name="date_order" attrs="{'invisible': [('state', 'in', ['sale', 'done', 'cancel'])]}"/>
+                                    <field name="fiscal_position_id" options="{'no_create': True}"/>
+                                    <field name="invoice_status" states="sale,done" invisible="1"/>
+                                </group>
+                                <group string="Reporting" name="technical" groups="base.group_no_one">
+                                    <field groups="base.group_no_one" name="origin"/>
+                                </group>
+                            </group>
+                        </page> 
+                -->
+
+
+
+
+ 
+  </data>
+</odoo>
+
+
