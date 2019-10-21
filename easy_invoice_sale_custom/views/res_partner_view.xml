@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+	<record id="easy_res_partner_form_inherit" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="name">Res Partner Inherit</field>
+        <field name="inherit_id" ref="easy_invoice_partner_cc.easy_res_partner_form" />
+        <field name="arch" type="xml">
+
+
+            <xpath expr="//field[@name='amount_debit']" position="after">
+                <field name="default_product_pricelist_id"/>
+            </xpath>
+
+
+        </field>
+    </record>
+
+
+ 
+  </data>
+</odoo>
+

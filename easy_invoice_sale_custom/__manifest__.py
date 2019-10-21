@@ -9,15 +9,19 @@
     """,
     'author': "Calyx",
     'website': "http://www.calyxservicios.com.ar",
-    'category': 'Easy Invoice',
+    'category': 'Customs',
     'version': '11.0.1.0.0',
     'depends' : [
         'easy_invoice_sale',
+        'easy_invoice_partner_cc',
         'easy_invoice_cost_center_relation',
         'sale',
         'sale_management',
+        'base',
         ],
     'data': [
         'views/sale_order_view.xml',
+        #'views/res_users_view.xml',
+        'views/res_partner_view.xml',
     ],
 }

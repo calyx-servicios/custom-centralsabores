@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+	<record id="view_users_form_inherit" model="ir.ui.view">
+        <field name="model">res.users</field>
+        <field name="name">Res users Inherit</field>
+        <field name="inherit_id" ref="base.view_users_form" />
+        <field name="arch" type="xml">
+
+           	<notebook position="inside">
+                <page name="easy_cost_center_page" string="Easy Cost Center Sale">
+                    <group>
+                        <field name="default_cost_center_sale_id"/>
+                    </group>
+                </page>
+            </notebook>
+
+        </field>
+    </record>
+
+
+ 
+  </data>
+</odoo>
+
+

@@ -1,7 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <data>
-
-
+    <data>
 
     <record id="base_sale_order_form_inherit" model="ir.ui.view">
         <field name="model">sale.order</field>
@@ -11,6 +10,11 @@
 
             <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']"  position="attributes">
                 <attribute name="readonly">context.get('uid', False) not in [1]</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='action_quotation_send']" position="after">
+                <button name="easy_invoice_action_confirm" type="object" string="Easy Action Confirm"
+                    attrs="{'invisible': [('state', '!=', 'draft')]}"  />   
             </xpath>
 
           <!--   OCULTAR LOS CAMPOS Q NO SON REQUERIDOS  context.get('uid', False) not in [1] -->
