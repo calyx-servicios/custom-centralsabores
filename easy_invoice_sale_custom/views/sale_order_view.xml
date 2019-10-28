@@ -8,14 +8,6 @@
         <field name="inherit_id" ref="sale.view_order_form" />
         <field name="arch" type="xml">
 
-            <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']"  position="attributes">
-                <attribute name="readonly">context.get('uid', False) not in [1]</attribute>
-            </xpath>
-
-            <xpath expr="//button[@name='action_quotation_send']" position="after">
-                <button name="easy_invoice_action_confirm" type="object" string="Easy Action Confirm"
-                    attrs="{'invisible': [('state', '!=', 'draft')]}"  />   
-            </xpath>
 
           <!--   OCULTAR LOS CAMPOS Q NO SON REQUERIDOS  context.get('uid', False) not in [1] -->
             <xpath expr="//button[@name='action_quotation_send']" position="attributes">
@@ -27,12 +19,45 @@
             <xpath expr="//button[@name='action_done']" position="attributes">
                 <attribute name="invisible">context.get('uid', False) not in [1]</attribute>
             </xpath>
+            <xpath expr="//button[@name='action_confirm']" position="attributes">
+                <attribute name="invisible">context.get('uid', False) not in [1]</attribute>
+            </xpath>
 
 
+            <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']"  position="attributes">
+                <attribute name="readonly">context.get('uid', False) not in [1]</attribute>
+                
+            </xpath>
 
             <xpath expr="//field[@name='pricelist_id']" position="attributes">
                 <attribute name="invisible">context.get('uid', False) not in [1]</attribute>
             </xpath>
+
+<!-- NO ESTA ANDANDO ESTOOO 
+
+            <xpath expr="//field[@name='pricelist_id']"  position="after">
+                <field name="pricelist_product_list_ids"/>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']"  position="after">
+                <field name="pricelist_id"/>
+                <field name="pricelist_product_list_ids"/>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']]"  position="attributes">
+                 <attribute name="context">{'default_pricelist_id': pricelist_id}</attribute>
+            </xpath> 
+
+
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']"  position="attributes">
+                <attribute name="domain">"[('id','in',pricelist_product_list_ids)]" </attribute>
+            </xpath>
+            -->
+<!--  NO ESTA ANDANDO ESTOOO -->
+
+
+
+
 
             <xpath expr="//field[@name='confirmation_date']" position="attributes">
                 <attribute name="invisible">context.get('uid', False) not in [1]</attribute>
