@@ -43,12 +43,6 @@ class SaleOrder(models.Model):
         ########
         ## en este metodo deberia de cambiar el precio de lista que se encuentra en el order sale por el que esta configurado por defecto en el partner.
         ########
-        print('      entra al onchange')
-        print(self.pricelist_id)
-        print(self.pricelist_id.name)
-        print('-- deff --')
-        print(self.partner_id.default_product_pricelist_id)
-        print(self.partner_id.default_product_pricelist_id.name)
         if self.partner_id.default_product_pricelist_id:
             self.pricelist_id = self.partner_id.default_product_pricelist_id.id
             print('   setea el valor def ')

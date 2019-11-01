@@ -10,7 +10,7 @@
         <field name="arch" type="xml">
 
 
-            <xpath expr="//field[@name='amount_debit']" position="after">
+            <xpath expr="//field[@name='total_amount_debit']" position="after">
                 <field name="default_product_pricelist_id"/>
             </xpath>
 
