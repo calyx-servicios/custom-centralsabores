@@ -23,7 +23,7 @@ class SaleOrder(models.Model):
 
 ### Fields
     cost_center_id = fields.Many2one('cost.center', 'Cost Center',default=_default_cost_center)
-    #pricelist_product_list_ids = fields.Many2many('product.template', 'product_template_pricelist_sale_rel', 'product_id', 'pricelist_id', string='Listo Product',compute='_compute_pricelist_product_list')
+    #ricelist_product_list_ids = fields.Many2many('product.template', 'product_template_pricelist_sale_rel', 'product_id', 'pricelist_id', string='Listo Product',compute='_compute_pricelist_product_list')
     
 ### end Fields
     

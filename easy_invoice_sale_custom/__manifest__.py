@@ -12,6 +12,7 @@
     'category': 'Customs',
     'version': '11.0.1.0.0',
     'depends' : [
+        'easy_invoice',
         'easy_invoice_sale',
         'easy_invoice_sale_automatization',
         'easy_invoice_partner_cc',
@@ -22,6 +23,7 @@
         ],
     'data': [
         'views/sale_order_view.xml',
+        'views/easy_invoice_view.xml',
         'views/res_partner_view.xml',
     ],
 }
