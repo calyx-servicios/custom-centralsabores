@@ -105,7 +105,7 @@
         <field name="inherit_id" ref="easy_invoice_cost_center_relation.sale_order_form_inherit" />
         <field name="arch" type="xml">
 
-            <xpath expr="//field[@name='cost_center_id']" position="attributes">
+            <xpath expr="//field[@name='order_line_cost_center_ids']" position="attributes">
                 <attribute name="invisible">context.get('uid', False) not in [1]</attribute>
             </xpath>
 
