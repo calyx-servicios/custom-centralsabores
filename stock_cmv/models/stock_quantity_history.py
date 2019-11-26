@@ -34,7 +34,7 @@ class StockQuantityHistory(models.TransientModel):
             return super(StockQuantityHistory, self).open_table()
         else:
             if self.compute_at_date:
-                tree_view_id = self.env.ref('cmv.view_stock_product_tree_custom').id
+                tree_view_id = self.env.ref('stock_cmv.view_stock_product_tree_custom').id
                 form_view_id = self.env.ref('stock.product_form_view_procurement_button').id
                 # We pass `to_date` in the context so that `qty_available` will be computed across
                 # moves until date.
