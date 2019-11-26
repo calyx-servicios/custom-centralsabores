@@ -78,32 +78,34 @@ class Product(models.Model):
         moves_in_initial={}
         moves_out_initial={}
        
-        _logger.debug('>>>>=====moves_in_done filter:%r=====<<<<',domain_move_in_done)
+        
+        #period range
+        _logger.debug('>>>>=====moves_in_period filter:%r=====<<<<',domain_move_in_done)
         for move in Move.search(domain_move_in_done):
-            _logger.debug('=====moves_in_donde=====%r %r %r %r', move.product_id.name, move.price_unit, move.product_qty, move.origin)
+            _logger.debug('=====moves_in_period=====%r %r %r %r', move.product_id.name, move.price_unit, move.product_qty, move.origin)
             if not move.product_id.name in moves_in_res:
                 moves_in_res.setdefault(move.product_id.id, {'count':0, 'avg':0.0})
             if move.purchase_line_id:
-                _logger.debug('=====purchase_line=====%r %r', move.purchase_line_id.order_id.name, move.purchase_line_id.price_unit)
+                _logger.debug('=====purchase_line period=====%r %r', move.purchase_line_id.order_id.name, move.purchase_line_id.price_unit)
                 moves_in_res[move.product_id.id]['count']+=move.product_uom_qty
                 moves_in_res[move.product_id.id]['avg']+= move.purchase_line_id.price_unit*move.product_uom_qty
             else:
                 moves_in_res[move.product_id.id]['count']+=move.product_uom_qty
                 moves_in_res[move.product_id.id]['avg']+= move.price_unit*move.product_uom_qty
             
-        _logger.debug('>>>>=====moves_out_done filter:%r=====<<<<',domain_move_out_done) 
+        _logger.debug('>>>>=====moves_out_period filter:%r=====<<<<',domain_move_out_done) 
         for move in Move.search(domain_move_out_done):
-            _logger.debug('=====moves_out_done=====%r %r %r', move.product_id.name, move.price_unit, move.product_qty)
+            _logger.debug('=====moves_out_period=====%r %r %r', move.product_id.name, move.price_unit, move.product_qty)
             if not move.product_id.name in moves_out_res:
                 moves_out_res.setdefault(move.product_id.id, {'count':0, 'avg':0.0})
             if move.sale_line_id:
-                _logger.debug('=====sale_line=====%r %r', move.sale_line_id.order_id.name, move.sale_line_id.price_unit)
+                _logger.debug('=====sale_line period=====%r %r', move.sale_line_id.order_id.name, move.sale_line_id.price_unit)
                 moves_out_res[move.product_id.id]['count']+=move.product_uom_qty
                 moves_out_res[move.product_id.id]['avg']+= move.sale_line_id.price_unit*move.product_uom_qty
             else:
                 moves_out_res[move.product_id.id]['count']+=move.product_uom_qty
                 moves_out_res[move.product_id.id]['avg']+= move.price_unit*move.product_uom_qty
-           
+
                 
         # moves_in_res = dict((item['product_id'][0], item['product_qty']) for item in Move.read_group(domain_move_in_todo, ['product_id', 'product_qty'], ['product_id'], orderby='id'))
         # moves_out_res = dict((item['product_id'][0], item['product_qty']) for item in Move.read_group(domain_move_out_todo, ['product_id', 'product_qty'], ['product_id'], orderby='id'))
@@ -113,30 +115,33 @@ class Product(models.Model):
         if dates_in_the_past:
             # Calculate the moves that were done before now to calculate back in time (as most questions will be recent ones)
             _logger.debug('>>>>=====moves_in_done dates_in_the_past=====<<<<')
-            domain_move_in_done = [('state', '=', 'done'),('date', '<', from_date)] + intial_domain_in
-            domain_move_out_done = [('state', '=', 'done'), ('date', '<', from_date)] + intial_domain_out
+            domain_move_in_past = [('state', '=', 'done'),('date', '<', from_date)] + intial_domain_in
+            domain_move_out_past = [('state', '=', 'done'), ('date', '<', from_date)] + intial_domain_out
             _logger.debug('>>>>=====moves_in_done_past filter:%r=====<<<<',domain_move_in_done)
-            _logger.debug('>>>>=====moves_out_done_past filter:%r=====<<<<',domain_move_out_done)
-            for move in Move.search(domain_move_in_done):
+            
+            for move in Move.search(domain_move_in_past):
                 if not move.product_id.name in moves_in_initial:
                     moves_in_initial.setdefault(move.product_id.id, {'count':0, 'avg':0.0})
                 if move.purchase_line_id:
-                    _logger.debug('=====purchase_line=====%r %r', move.purchase_line_id.order_id.name, move.purchase_line_id.price_unit)
+                    _logger.debug('=====purchase_line past=====%r %r', move.purchase_line_id.order_id.name, move.purchase_line_id.price_unit)
                     moves_in_initial[move.product_id.id]['count']+=move.product_uom_qty
                     moves_in_initial[move.product_id.id]['avg']+= move.purchase_line_id.price_unit*move.product_uom_qty
                 else:
                     moves_in_initial[move.product_id.id]['count']+=move.product_uom_qty
                     moves_in_initial[move.product_id.id]['avg']+= move.price_unit*move.product_uom_qty
-            for move in Move.search(domain_move_out_done):
+
+            _logger.debug('>>>>=====moves_out_done_past filter:%r=====<<<<',domain_move_out_done)
+            for move in Move.search(domain_move_out_past):
                 if not move.product_id.name in moves_out_initial:
                     moves_out_initial.setdefault(move.product_id.id, {'count':0, 'avg':0.0})
                 if move.sale_line_id:
-                    _logger.debug('=====sale_line=====%r %r', move.sale_line_id.order_id.name, move.sale_line_id.price_unit)
+                    _logger.debug('=====sale_line past=====%r %r', move.sale_line_id.order_id.name, move.sale_line_id.price_unit)
                     moves_out_initial[move.product_id.id]['count']+=move.product_uom_qty
                     moves_out_initial[move.product_id.id]['avg']+= move.sale_line_id.price_unit*move.product_uom_qty
                 else:
                     moves_out_initial[move.product_id.id]['count']+=move.product_uom_qty
                     moves_out_initial[move.product_id.id]['avg']+= move.price_unit*move.product_uom_qty
+        
 
         res = dict()
         for product in self.with_context(prefetch_fields=False):
@@ -163,10 +168,11 @@ class Product(models.Model):
                 period_out_cost=moves_out_res.get(product_id)['avg']/moves_out_res.get(product_id)['count']
             cost=period_in_cost-period_out_cost
             final_cost=initial_cost+cost
+
             res[product_id]['initial_cost'] = float_round(initial_cost, precision_rounding=rounding)
             res[product_id]['cost'] = float_round(cost, precision_rounding=rounding)
             res[product_id]['final_cost'] = float_round(final_cost, precision_rounding=rounding)
-
+            _logger.debug('=====product initial:%r  cost:%r final:%r ', res[product_id]['initial_cost'],res[product_id]['cost'],res[product_id]['final_cost'])
         return res
     
     def _search_cost(self, operator, value):

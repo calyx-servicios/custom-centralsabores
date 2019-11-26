@@ -21,7 +21,7 @@ class StockQuantityHistory(models.TransientModel):
 
     @api.model
     def _get_from_date(self):
-        _from_date=datetime.datetime.now() - datetime.timedelta(days=3*365)
+        _from_date=datetime.datetime.now()# - datetime.timedelta(days=3*365)
         return _from_date
 
     from_date = fields.Datetime('Inventory From Date', default=_get_from_date)
