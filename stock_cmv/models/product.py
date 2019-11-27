@@ -158,15 +158,15 @@ class Product(models.Model):
             period_in_cost=0.0
             period_out_cost=0.0
             if moves_in_initial.get(product_id):
-                initial_in_cost=moves_in_initial.get(product_id)['avg']/moves_in_initial.get(product_id)['count']
+                initial_in_cost=moves_in_initial.get(product_id)['avg']#/moves_in_initial.get(product_id)['count']
             if moves_out_initial.get(product_id):
-                initial_out_cost=moves_out_initial.get(product_id)['avg']/moves_out_initial.get(product_id)['count']
+                initial_out_cost=moves_out_initial.get(product_id)['avg']#/moves_out_initial.get(product_id)['count']
             initial_cost=initial_in_cost-initial_out_cost
 
             if moves_in_res.get(product_id):
-                period_in_cost=moves_in_res.get(product_id)['avg']/moves_in_res.get(product_id)['count']
+                period_in_cost=moves_in_res.get(product_id)['avg']#/moves_in_res.get(product_id)['count']
             if moves_out_res.get(product_id):
-                period_out_cost=moves_out_res.get(product_id)['avg']/moves_out_res.get(product_id)['count']
+                period_out_cost=moves_out_res.get(product_id)['avg']#/moves_out_res.get(product_id)['count']
             cost=period_in_cost-period_out_cost
             final_cost=initial_cost+cost
 
