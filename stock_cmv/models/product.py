@@ -110,6 +110,7 @@ class Product(models.Model):
         # moves_in_res = dict((item['product_id'][0], item['product_qty']) for item in Move.read_group(domain_move_in_todo, ['product_id', 'product_qty'], ['product_id'], orderby='id'))
         # moves_out_res = dict((item['product_id'][0], item['product_qty']) for item in Move.read_group(domain_move_out_todo, ['product_id', 'product_qty'], ['product_id'], orderby='id'))
         quants_res = dict((item['product_id'][0], item['quantity']) for item in Quant.read_group(domain_quant, ['product_id', 'quantity'], ['product_id'], orderby='id'))
+        _logger.debug('=====quants res?=====%r', quants_res)
         _logger.debug('=====moves_in_res=====%r', moves_in_res)
         _logger.debug('=====moves_out_res=====%r', moves_out_res)
         if dates_in_the_past:

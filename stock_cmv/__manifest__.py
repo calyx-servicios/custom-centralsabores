@@ -19,5 +19,6 @@
     'data': [
         'views/stock_account_views.xml',
         'views/products_view.xml',
+        'views/stock_inventory_view.xml',
     ],
 }
