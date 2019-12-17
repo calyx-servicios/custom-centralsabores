@@ -14,15 +14,15 @@ class SaleOrder(models.Model):
             line.product_id_change() 
         return result
 
-    @api.model
-    def _default_cost_center(self):
-        print(self.env.user.partner_id)
-        if self.env.user.partner_id.default_cost_center_sale_id:
-            return self.env.user.partner_id.default_cost_center_sale_id.id
-        return None
+    # @api.model aca cambiar
+    # def _default_cost_center(self):
+    #     print(self.env.user.partner_id)
+    #     if self.env.user.partner_id.default_cost_center_sale_id:
+    #         return self.env.user.partner_id.default_cost_center_sale_id.id
+    #     return None
 
 ### Fields
-    cost_center_id = fields.Many2one('cost.center', 'Cost Center',default=_default_cost_center)
+    #cost_center_id = fields.Many2one('cost.center', 'Cost Center',default=_default_cost_center) aca cambiar
     #ricelist_product_list_ids = fields.Many2many('product.template', 'product_template_pricelist_sale_rel', 'product_id', 'pricelist_id', string='Listo Product',compute='_compute_pricelist_product_list')
     
 ### end Fields

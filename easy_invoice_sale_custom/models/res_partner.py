@@ -10,5 +10,3 @@ class ResPartner(models.Model):
 
     default_product_pricelist_id = fields.Many2one('product.pricelist', 'Default Pricelist Sale')
     
-    default_cost_center_sale_id = fields.Many2one('cost.center', 'Default Cost Center Sale')
-    

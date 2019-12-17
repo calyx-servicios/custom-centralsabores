@@ -7,14 +7,6 @@ from odoo.exceptions import ValidationError
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
-
-    pricelist_id = fields.Many2one('product.pricelist', string='Pricelist') 
-    pricelist_product_list_ids = fields.Many2many('product.product', 'product_template_pricelist_sale_line_rel', 'product_id', 
-            'pricelist_id', string='Listo Product',compute='_compute_pricelist_product_list')
-    
-### end Fields
-    
-    
     @api.multi
     @api.depends('pricelist_id')
     def _compute_pricelist_product_list(self):
@@ -26,3 +18,12 @@ class SaleOrderLine(models.Model):
                     if self_ids:
                         pricelist_product_list_ids.append(self_ids[0].id)
             rec.pricelist_product_list_ids = pricelist_product_list_ids
+
+    pricelist_id = fields.Many2one('product.pricelist', string='Pricelist') 
+    pricelist_product_list_ids = fields.Many2many('product.product', 'product_template_pricelist_sale_line_rel', 'product_id', 
+            'pricelist_id', string='Listo Product',compute='_compute_pricelist_product_list')
+    
+### end Fields
+    
+    
+    
