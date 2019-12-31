@@ -29,7 +29,7 @@ class EasyInvoiceLine(models.Model):
 
 
     @api.onchange('product_id')
-    def _onchange_product_id(self):
+    def _onchange_product_id2(self):
         for rec in self:
             if rec.pricelist_id:
                 for line_obj in rec.pricelist_id.item_ids:
