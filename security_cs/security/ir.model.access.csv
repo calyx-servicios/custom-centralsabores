@@ -2,3 +2,8 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_despacho_partner,access_despacho_parter,base.model_res_partner,despacho_user_group,1,0,0,0
 access_despacho_sale_order,access_despacho_sale_order,sale.model_sale_order,despacho_user_group,1,1,1,1
 access_despacho_product_product,access_despacho_product_product,product.model_product_product,despacho_user_group,1,0,0,0
+access_despacho_easy_invoice,access_despacho_easy_invoice,easy_invoice.model_easy_invoice,despacho_user_group,1,1,1,0
+access_despacho_easy_invoice_line,access_despacho_easy_invoice_line,easy_invoice.model_easy_invoice_line,despacho_user_group,1,1,1,0
+access_despacho_easy_sequence,access_despacho_easy_sequence,easy_invoice.model_easy_sequence,despacho_user_group,1,1,1,0
+access_despacho_easy_payment,access_despacho_easy_payment,easy_invoice.model_easy_payment,despacho_user_group,1,1,1,0
+
