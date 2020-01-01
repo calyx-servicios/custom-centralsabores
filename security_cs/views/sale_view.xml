@@ -13,7 +13,7 @@
 
             <xpath expr="//field[@name='sale_order_invoice_ids']" position="attributes">
 
-                
+                <attribute name="groups">security_cs.despacho_user_group,easy_invoice.easy_invoice_user_group</attribute>
 
             </xpath>
 
