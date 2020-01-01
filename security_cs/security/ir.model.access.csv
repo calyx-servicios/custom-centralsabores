@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_despacho_partner,access_despacho_parter,base.model_res_partner,despacho_user_group,1,0,0,0
+access_despacho_sale_order,access_despacho_sale_order,sale.model_sale_order,despacho_user_group,1,1,1,1
+access_despacho_product_product,access_despacho_product_product,product.model_product_product,despacho_user_group,1,0,0,0
