@@ -83,19 +83,19 @@
 
     <!-- para ocultar-->
     <record id="easy_invoice.vendor_menu" model="ir.ui.menu">
-        <field name="groups_id" eval="[(4,ref('easy_invoice.easy_invoice_user_group')),(4,ref('easy_invoice.easy_invoice_responsible_group'))]"/>
+        <field name="groups_id" eval="[(4,ref('easy_invoice.easy_invoice_user_group')),(4,ref('easy_invoice.easy_invoice_responsible_group')),(4,ref('compras_user_group'))]"/>
     </record>
 
     <record id="easy_invoice_partner_cc.menu_action_easy_res_partner_cc" model="ir.ui.menu">
-        <field name="groups_id" eval="[(4,ref('easy_invoice.easy_invoice_user_group')),(4,ref('easy_invoice.easy_invoice_responsible_group'))]"/>
+        <field name="groups_id" eval="[(4,ref('easy_invoice.easy_invoice_user_group')),(4,ref('easy_invoice.easy_invoice_responsible_group')),(4,ref('compras_user_group'))]"/>
     </record>
 
     <record id="easy_invoice_employee_cc.menu_action_easy_hr_employee_cc" model="ir.ui.menu">
-        <field name="groups_id" eval="[(4,ref('easy_invoice.easy_invoice_user_group')),(4,ref('easy_invoice.easy_invoice_responsible_group'))]"/>
+        <field name="groups_id" eval="[(4,ref('easy_invoice.easy_invoice_user_group')),(4,ref('easy_invoice.easy_invoice_responsible_group')),(4,ref('compras_user_group'))]"/>
     </record>
 
     <record id="easy_invoice.menu_action_easy_payment_out_group_tree2" model="ir.ui.menu">
-        <field name="groups_id" eval="[(4,ref('easy_invoice.easy_invoice_user_group')),(4,ref('easy_invoice.easy_invoice_responsible_group'))]"/>
+        <field name="groups_id" eval="[(4,ref('easy_invoice.easy_invoice_user_group')),(4,ref('easy_invoice.easy_invoice_responsible_group')),(4,ref('compras_user_group'))]"/>
     </record>
 
 
