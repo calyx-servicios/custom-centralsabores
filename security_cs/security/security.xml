@@ -3,7 +3,7 @@
 <data noupdate="0">
 
     <record id="cs" model="ir.module.category" >
-        <field name="name">Cemtal Sabores</field>
+        <field name="name">Central Sabores</field>
         <field name="sequence">1</field>
         <field name="description">Categoría base para Central Sabores</field>
     </record>
@@ -13,6 +13,50 @@
         <field name="category_id" ref="cs"/>
         <field name="users" eval="[(4, ref('base.user_root'))]"/>
         <field name="implied_ids" eval="[(4, ref('sales_team.group_sale_salesman_all_leads'))]"/>
+    </record>
+
+    <record id="deposito_user_group" model="res.groups">
+        <field name="name">Deposito</field>
+        <field name="category_id" ref="cs"/>
+        <field name="users" eval="[(4, ref('base.group_user'))]"/>
+        <field name="implied_ids" eval="[(4, ref('stock.group_stock_user'))]"/>
+    </record>
+
+    <record id="stock.menu_stock_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('deposito_user_group'))]"/>
+    </record>
+
+    <record id="stock.menu_warehouse_report" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('deposito_user_group'))]"/>
+    </record>
+
+    <!--para restringir menus raiz  -->
+    <record id="hr_expense.menu_hr_expense_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('hr_expense.group_hr_expense_user'))]"/>
+    </record>
+
+    <record id="hr.menu_hr_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('hr.group_hr_user'))]"/>
+    </record>
+
+    <!--para restringir submenu  -->
+    <record id="stock_account.menu_valuation" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('stock.group_stock_manager'))]"/>
+    </record>
+
+    <record id="compras_user_group" model="res.groups">
+        <field name="name">Compras</field>
+        <field name="category_id" ref="cs"/>
+        <field name="users" eval="[(4, ref('base.group_user'))]"/>
+        <field name="implied_ids" eval="[(4, ref('purchase.group_purchase_user')),(4, ref('easy_invoice.easy_invoice_responsible_group'))]"/>
+    </record>
+
+    <record id="easy_invoice_recaudation.menu_easy_sequence" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('base.group_system'))]"/>
+    </record>
+
+    <record id="purchase.purchase_report" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('compras_user_group'))]"/>
     </record>
 
 </data>

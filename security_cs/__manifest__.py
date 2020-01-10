@@ -4,13 +4,14 @@
     'summary': """
         Security CS""",
     'description': """
-        
+
     """,
     'author': "Calyx",
     'website': "http://www.calyxservicios.com.ar",
     'category': 'Tools',
     'version': '0.1',
-    'depends': ['base', 'contacts', 'l10n_ar_partner', 'easy_invoice', 'sale', 'easy_invoice_sale', 'sale_management'],
+    'depends': ['base', 'contacts', 'l10n_ar_partner', 'easy_invoice', 'sale', 'easy_invoice_sale', 'sale_management',
+        'stock','stock_account','hr','hr_expense'],
 
     # always loaded
     'data': [
