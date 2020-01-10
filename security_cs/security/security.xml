@@ -36,7 +36,7 @@
     </record>
 
     <record id="hr.menu_hr_root" model="ir.ui.menu">
-        <field name="groups_id" eval="[(4,ref('hr.group_hr_user'))]"/>
+        <field name="groups_id" eval="[(4,ref('hr_expense.group_hr_expense_user'))]"/>
     </record>
 
     <!--para restringir submenu  -->
@@ -45,7 +45,7 @@
     </record>
 
     <record id="compras_user_group" model="res.groups">
-        <field name="name">Compras</field>
+        <field name="name">Cobranzas</field>
         <field name="category_id" ref="cs"/>
         <field name="users" eval="[(4, ref('base.group_user'))]"/>
         <field name="implied_ids" eval="[(4, ref('purchase.group_purchase_user')),(4, ref('easy_invoice.easy_invoice_responsible_group'))]"/>
@@ -58,6 +58,46 @@
     <record id="purchase.purchase_report" model="ir.ui.menu">
         <field name="groups_id" eval="[(4,ref('compras_user_group'))]"/>
     </record>
+
+    <record id="cuenta_corriente_user_group" model="res.groups">
+        <field name="name">Cuenta Correntista</field>
+        <field name="category_id" ref="cs"/>
+        <field name="users" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="sale.menu_sale_report" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('cuenta_corriente_user_group'))]"/>
+    </record>
+
+    <record id="easy_invoice.menu_ei_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('cuenta_corriente_user_group'))]"/>
+    </record>
+
+    <record id="easy_invoice.menu_action_easy_invoice_customer_rec_tree" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('cuenta_corriente_user_group'))]"/>
+    </record>
+
+    <record id="easy_invoice.menu_action_easy_invoice_customer_tree" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('cuenta_corriente_user_group'))]"/>
+    </record>
+
+    <!-- para ocultar-->
+    <record id="easy_invoice.vendor_menu" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('easy_invoice.easy_invoice_user_group')),(4,ref('easy_invoice.easy_invoice_responsible_group'))]"/>
+    </record>
+
+    <record id="easy_invoice_partner_cc.menu_action_easy_res_partner_cc" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('easy_invoice.easy_invoice_user_group')),(4,ref('easy_invoice.easy_invoice_responsible_group'))]"/>
+    </record>
+
+    <record id="easy_invoice_employee_cc.menu_action_easy_hr_employee_cc" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('easy_invoice.easy_invoice_user_group')),(4,ref('easy_invoice.easy_invoice_responsible_group'))]"/>
+    </record>
+
+    <record id="easy_invoice.menu_action_easy_payment_out_group_tree2" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('easy_invoice.easy_invoice_user_group')),(4,ref('easy_invoice.easy_invoice_responsible_group'))]"/>
+    </record>
+
 
 </data>
 </odoo>

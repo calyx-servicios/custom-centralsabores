@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+	<record id="easy_invoice_customer_form_security" model="ir.ui.view">
+        <field name="model">easy.invoice</field>
+        <field name="name">Easy Invoice Inherit Sabores Security</field>
+        <field name="inherit_id" ref="easy_invoice_recaudation.easy_invoice_customer_form_inherit" />
+        <field name="arch" type="xml">
+            <xpath expr="//button[5]" position="attributes">
+                <attribute name="groups">easy_invoice.easy_invoice_responsible_group,easy_invoice.easy_invoice_user_group</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+</data>
+</odoo>

@@ -18,6 +18,7 @@
         'security/security.xml',
         'security/ir.model.access.csv',
         'views/sale_view.xml',
+        'views/easy_invoice.xml',
     ],
 
     'demo': [
