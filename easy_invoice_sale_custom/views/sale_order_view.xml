@@ -33,27 +33,25 @@
                 <attribute name="invisible">context.get('uid', False) not in [1]</attribute>
             </xpath>
 
-<!--
 
+<!--
             <xpath expr="//field[@name='pricelist_id']"  position="after">
                 <field name="pricelist_product_list_ids"/>
             </xpath>
- -->
-            <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']"  position="after">
-                <field name="pricelist_id" invisible="context.get('uid', False) not in [1]" />
-                <field name="pricelist_product_list_ids" invisible="context.get('uid', False) not in [1]" />
-            </xpath>
 
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']"  position="after">
+                <field name="order_id" invisible="context.get('uid', False) not in [1]" />
+            </xpath>
+ 
             <xpath expr="//field[@name='order_line']"  position="attributes">
-                 <attribute name="context">{'default_pricelist_id': pricelist_id}</attribute>
+                 <attribute name="context">{'default_pricelist_product_list_ids': pricelist_product_list_ids}</attribute>
             </xpath> 
 
-
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']"  position="attributes">
-                <attribute name="domain">"[('id','in',pricelist_product_list_ids)]" </attribute>
+                <attribute name="domain">"[('id','in',order_id.pricelist_product_list_ids)]" </attribute>
             </xpath>
-           
-
+     
+ --> 
 
 
 

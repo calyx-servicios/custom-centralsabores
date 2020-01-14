@@ -14,28 +14,24 @@ class SaleOrder(models.Model):
             line.product_id_change() 
         return result
 
-    # @api.model aca cambiar
-    # def _default_cost_center(self):
-    #     print(self.env.user.partner_id)
-    #     if self.env.user.partner_id.default_cost_center_sale_id:
-    #         return self.env.user.partner_id.default_cost_center_sale_id.id
-    #     return None
 
-### Fields
-    #cost_center_id = fields.Many2one('cost.center', 'Cost Center',default=_default_cost_center) aca cambiar
-    #ricelist_product_list_ids = fields.Many2many('product.template', 'product_template_pricelist_sale_rel', 'product_id', 'pricelist_id', string='Listo Product',compute='_compute_pricelist_product_list')
+# ### Fields
+#     pricelist_product_list_ids = fields.Many2many('product.product', 'product_template_pricelist_sale_line_rel', 'product_id',
+#         'pricelist_id', string='Listo Product',compute='_compute_pricelist_product_list')
+
+# ### end Fields
     
-### end Fields
-    
-    @api.multi
-    @api.depends('pricelist_id')
-    def _compute_pricelist_product_list(self):
-        for rec in self:
-            pricelist_product_list_ids =[]
-            for line_obj in rec.pricelist_id.item_ids:
-                if line_obj.applied_on == '1_product':  
-                    pricelist_product_list_ids.append(line_obj.product_tmpl_id.id)
-            rec.pricelist_product_list_ids = pricelist_product_list_ids
+#     @api.multi
+#     @api.depends('pricelist_id')
+#     def _compute_pricelist_product_list(self):
+#         for rec in self:
+#             pricelist_product_list_ids =[]
+#             for line_obj in rec.pricelist_id.item_ids:
+#                 if line_obj.applied_on == '1_product':  
+#                     self_ids = self.env['product.product'].search([ ('product_tmpl_id', '=', line_obj.product_tmpl_id.id)])
+#                     if self_ids:
+#                         pricelist_product_list_ids.append(self_ids[0].id)
+#             rec.pricelist_product_list_ids = pricelist_product_list_ids
 
 
     @api.onchange('partner_id')
@@ -45,7 +41,6 @@ class SaleOrder(models.Model):
         ########
         if self.partner_id.default_product_pricelist_id:
             self.pricelist_id = self.partner_id.default_product_pricelist_id.id
-            print('   setea el valor def ')
 
     @api.onchange('pricelist_id')
     def _onchange_easy_pricelist_id(self):
