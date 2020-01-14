@@ -20,6 +20,8 @@
         'easy_invoice_analytic_relation',
         'sale',
         'sale_management',
+        'sale_stock',
+        'account_analytic_sale_in_line',
         'base',
         ],
     'data': [
