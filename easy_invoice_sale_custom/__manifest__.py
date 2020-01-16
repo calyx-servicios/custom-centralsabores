@@ -14,7 +14,7 @@
     'depends' : [
         'easy_invoice',
         'easy_invoice_sale',
-        'easy_invoice_sale_automatization',
+        # 'easy_invoice_sale_automatization',
         'easy_invoice_partner_cc',
         #'easy_invoice_cost_center_relation',
         'easy_invoice_analytic_relation',
