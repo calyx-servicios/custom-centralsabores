@@ -43,7 +43,7 @@
         <field name="arch" type="xml">
             <xpath expr="//button[@name='create_easy_invoice']" position="attributes">
 
-                  <attribute name="groups">easy_invoice.easy_invoice_responsible_group</attribute>
+                  <attribute name="groups">easy_invoice.easy_invoice_responsible_group,easy_invoice.easy_invoice_user_group</attribute>
 
             </xpath>
           </field>
