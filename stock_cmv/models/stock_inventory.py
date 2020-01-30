@@ -14,7 +14,7 @@ _logger = logging.getLogger(__name__)
 
 class InventoryLine(models.Model):
     _inherit = "stock.inventory.line"
-    
+
     product_price = fields.Float('Price',)
 
 
@@ -34,9 +34,3 @@ class Inventory(models.Model):
             _logger.debug('========Force Move Price for Product:%r  %r=> $$$:%r==========',move.product_id.name, move.price_unit,prices[move.product_id.id])
             move.price_unit=prices[move.product_id.id]
         return data
- 
-    
-    
-
-    
-           
