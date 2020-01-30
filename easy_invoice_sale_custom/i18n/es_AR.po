@@ -26,6 +26,11 @@ msgid "Contact"
 msgstr "Contacto"
 
 #. module: easy_invoice_sale_custom
+#: model:ir.ui.view,arch_db:easy_invoice_sale_custom.base_sale_order_form_inherit
+msgid "Create and Print Easy Invoice"
+msgstr "Crear e Imprimir Factura Rápida"
+
+#. module: easy_invoice_sale_custom
 #: model:ir.ui.view,arch_db:easy_invoice_sale_custom.easy_res_partner_view_partner_form_inherit
 msgid "Default Central Cost Easy"
 msgstr "Default Centro de Costo"

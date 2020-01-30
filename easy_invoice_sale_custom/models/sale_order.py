@@ -47,3 +47,18 @@ class SaleOrder(models.Model):
         for line in self.order_line:
             result = line.product_id_change()
            
+
+
+
+    @api.multi
+    def create_confirm_invoice_print_report(self):
+        #res = self.action_confirm()
+        invoice_tuple = self.create_easy_invoice()
+        if 'context' in invoice_tuple and 'invoice_obj' in invoice_tuple['context']:
+            invoice_tuple['context']['invoice_obj'].confirm()
+            
+        #self.env['ir.actions.report']._get_report_from_name('easy_invoice.report_easy_invoice').report_action(easy_invoice_obj)
+
+        return self.env['ir.actions.report']._get_report_from_name('easy_invoice.report_easy_invoice').report_action(invoice_tuple['context']['invoice_obj'])
+
+

@@ -9,6 +9,14 @@
         <field name="arch" type="xml">
 
 
+
+            <xpath expr="//button[@name='action_quotation_send']" position="after">
+                <button name="create_confirm_invoice_print_report" type="object" string="Create and Print Easy Invoice"
+                    attrs="{'invisible': [('invoice_status', '!=', 'to invoice')]}"  
+                    groups="security_cs.despacho_user_group" /> 
+            </xpath>
+
+
           <!--   OCULTAR LOS CAMPOS Q NO SON REQUERIDOS  context.get('uid', False) not in [1] -->
             <xpath expr="//button[@name='action_quotation_send']" position="attributes">
                 <attribute name="invisible">context.get('uid', False) not in [1]</attribute>
@@ -96,6 +104,8 @@
             <xpath expr="//page[2]" position="attributes">
                 <attribute name="invisible">context.get('uid', False) not in [1]</attribute>
             </xpath>
+
+
 
         </field>
     </record>
