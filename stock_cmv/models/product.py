@@ -27,6 +27,10 @@ class Product(models.Model):
         'Final Cost', compute='_compute_cost', search='_search_cost',
         digits=dp.get_precision('Product Unit of Measure'),
         help="")
+    cmv = fields.Float(
+        'CMV', compute='_compute_cost', search='_search_cost',
+        digits=dp.get_precision('Product Unit of Measure'),
+        help="")
 
 
     @api.depends('stock_move_ids.product_qty', 'stock_move_ids.state')
@@ -36,6 +40,7 @@ class Product(models.Model):
             product.initial_cost = res[product.id]['initial_cost']
             product.cost = res[product.id]['cost']
             product.final_cost = res[product.id]['final_cost']
+            product.cmv = res[product.id]['cmv']
 
     def _compute_cost_dict(self, lot_id, owner_id, package_id, from_date=False, to_date=False):
         domain_quant_loc, domain_move_in_loc, domain_move_out_loc = self._get_domain_locations()
@@ -157,22 +162,53 @@ class Product(models.Model):
             initial_out_cost=0.0
             period_in_cost=0.0
             period_out_cost=0.0
+
+
+
             if moves_in_initial.get(product_id):
                 initial_in_cost=moves_in_initial.get(product_id)['avg']#/moves_in_initial.get(product_id)['count']
             if moves_out_initial.get(product_id):
                 initial_out_cost=moves_out_initial.get(product_id)['avg']#/moves_out_initial.get(product_id)['count']
-            initial_cost=initial_in_cost-initial_out_cost
 
             if moves_in_res.get(product_id):
                 period_in_cost=moves_in_res.get(product_id)['avg']#/moves_in_res.get(product_id)['count']
             if moves_out_res.get(product_id):
                 period_out_cost=moves_out_res.get(product_id)['avg']#/moves_out_res.get(product_id)['count']
-            cost=period_in_cost-period_out_cost
-            final_cost=initial_cost+cost
+
+            # qty 
+            initial_in_qty = 0
+            initial_out_qty = 0
+            period_in_qty = 0
+            period_out_qty = 0
+
+            if moves_in_initial.get(product_id):
+                initial_in_qty=moves_in_initial.get(product_id)['count']#/moves_in_initial.get(product_id)['count']
+            if moves_out_initial.get(product_id):
+                initial_out_qty=moves_out_initial.get(product_id)['count']#/moves_out_initial.get(product_id)['count']
+            initial_qty=initial_in_qty-initial_out_qty
+
+            if moves_in_res.get(product_id):
+                period_in_qty=moves_in_res.get(product_id)['count']#/moves_in_res.get(product_id)['count']
+            if moves_out_res.get(product_id):
+                period_out_qty=moves_out_res.get(product_id)['count']#/moves_out_res.get(product_id)['count']
+            period = qty = period_in_qty - period_out_qty 
+
+
+            initial_cost=initial_in_cost-initial_out_cost
+            cost= period_in_cost
+            total_qty = initial_qty + period_in_qty
+            final_qty = initial_qty + period_in_qty  - period_out_qty
+            if period_out_qty + initial_in_qty != 0:
+                final_cost=  ((initial_cost+cost) / total_qty) *  final_qty
+                final cost = ((initial_cost+ period cost) ) *  final_qty
+                                      total_qty
+
+            cmv = initial_cost + cost - final_cost
 
             res[product_id]['initial_cost'] = float_round(initial_cost, precision_rounding=rounding)
             res[product_id]['cost'] = float_round(cost, precision_rounding=rounding)
             res[product_id]['final_cost'] = float_round(final_cost, precision_rounding=rounding)
+            res[product_id]['cmv'] = float_round(cmv, precision_rounding=rounding)
             _logger.debug('=====product initial:%r  cost:%r final:%r ', res[product_id]['initial_cost'],res[product_id]['cost'],res[product_id]['final_cost'])
         return res
     

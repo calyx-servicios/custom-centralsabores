@@ -12,6 +12,7 @@
                             <field name="initial_cost"/>
                             <field name="cost"/>
                             <field name="final_cost"/>
+                            <field name="cmv"/>
                         </field>
                     </field>
                 </record>
