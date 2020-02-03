@@ -200,8 +200,6 @@ class Product(models.Model):
             final_qty = initial_qty + period_in_qty  - period_out_qty
             if period_out_qty + initial_in_qty != 0:
                 final_cost=  ((initial_cost+cost) / total_qty) *  final_qty
-                final cost = ((initial_cost+ period cost) ) *  final_qty
-                                      total_qty
 
             cmv = initial_cost + cost - final_cost
 
