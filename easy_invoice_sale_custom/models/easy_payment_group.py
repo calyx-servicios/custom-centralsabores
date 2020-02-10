@@ -23,5 +23,10 @@ class EasyPaymentGroup(models.Model):
         return var_return
 
 
-    
+
+
+    @api.multi
+    def prepared2processed(self):
+        var_return  = super(EasyPaymentGroup, self).prepared2processed()
+        return self.print_easypayment()
 

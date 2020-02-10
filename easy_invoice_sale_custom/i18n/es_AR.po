@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-02 14:51+0000\n"
-"PO-Revision-Date: 2019-12-02 14:51+0000\n"
+"POT-Creation-Date: 2020-02-10 18:43+0000\n"
+"PO-Revision-Date: 2020-02-10 18:43+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,9 +16,14 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: easy_invoice_sale_custom
-#: model:ir.model.fields,field_description:easy_invoice_sale_custom.field_res_users_easy_amount_balance
-msgid "Balance"
-msgstr "Balance"
+#: model:ir.ui.view,arch_db:easy_invoice_sale_custom.easy_payment_out_group_form_cc_inherit
+msgid "A Favor del Cliente"
+msgstr "A Favor del Cliente"
+
+#. module: easy_invoice_sale_custom
+#: model:ir.model.fields,field_description:easy_invoice_sale_custom.field_easy_payment_group_amount_difference
+msgid "Amount Diference"
+msgstr "Un Monto de"
 
 #. module: easy_invoice_sale_custom
 #: model:ir.model,name:easy_invoice_sale_custom.model_res_partner
@@ -31,21 +36,15 @@ msgid "Create and Print Easy Invoice"
 msgstr "Crear e Imprimir Factura Rápida"
 
 #. module: easy_invoice_sale_custom
-#: model:ir.ui.view,arch_db:easy_invoice_sale_custom.easy_res_partner_view_partner_form_inherit
-msgid "Default Central Cost Easy"
-msgstr "Default Centro de Costo"
-
-#. module: easy_invoice_sale_custom
-#: model:ir.model.fields,field_description:easy_invoice_sale_custom.field_res_partner_default_cost_center_sale_id
-#: model:ir.model.fields,field_description:easy_invoice_sale_custom.field_res_users_default_cost_center_sale_id
-msgid "Default Cost Center Sale"
-msgstr "Default Centro de Costo de Ventas"
-
-#. module: easy_invoice_sale_custom
 #: model:ir.model.fields,field_description:easy_invoice_sale_custom.field_res_partner_default_product_pricelist_id
 #: model:ir.model.fields,field_description:easy_invoice_sale_custom.field_res_users_default_product_pricelist_id
 msgid "Default Pricelist Sale"
 msgstr "Default Lista de Precios"
+
+#. module: easy_invoice_sale_custom
+#: model:ir.ui.view,arch_db:easy_invoice_sale_custom.easy_payment_out_group_form_cc_inherit
+msgid "Diferencia"
+msgstr "Diferencia"
 
 #. module: easy_invoice_sale_custom
 #: model:ir.model,name:easy_invoice_sale_custom.model_easy_invoice
@@ -58,27 +57,31 @@ msgid "Easy Invoice Line"
 msgstr "Linea de Factura"
 
 #. module: easy_invoice_sale_custom
+#: model:ir.model,name:easy_invoice_sale_custom.model_easy_payment_group
+msgid "Easy Payment Group"
+msgstr "Grupo de Pagos"
+
+#. module: easy_invoice_sale_custom
+#: model:ir.ui.view,arch_db:easy_invoice_sale_custom.easy_payment_out_group_form_cc_inherit
+msgid "El Cliente Debe"
+msgstr "El Cliente Debe"
+
+#. module: easy_invoice_sale_custom
 #: model:ir.model.fields,field_description:easy_invoice_sale_custom.field_easy_invoice_line_pricelist_product_list_ids
 msgid "List Product"
 msgstr "Lista de Productos"
 
 #. module: easy_invoice_sale_custom
-#: model:ir.model.fields,field_description:easy_invoice_sale_custom.field_sale_order_line_pricelist_product_list_ids
-msgid "Listo Product"
-msgstr "Lista de Productos"
-
-#. module: easy_invoice_sale_custom
-#: model:ir.model.fields,field_description:easy_invoice_sale_custom.field_res_users_amount_balance
-msgid "Odoo Balance"
-msgstr "Odoo Balance"
+#: model:ir.ui.view,arch_db:easy_invoice_sale_custom.easy_payment_out_group_form_inherit2
+msgid "Other Information"
+msgstr "Otra Información"
 
 #. module: easy_invoice_sale_custom
 #: model:ir.model.fields,field_description:easy_invoice_sale_custom.field_easy_invoice_line_pricelist_id
 #: model:ir.model.fields,field_description:easy_invoice_sale_custom.field_easy_invoice_pricelist_id
-#: model:ir.model.fields,field_description:easy_invoice_sale_custom.field_sale_order_line_pricelist_id
 #: model:ir.ui.view,arch_db:easy_invoice_sale_custom.easy_invoice_customer_form_inherit
 msgid "Pricelist"
-msgstr "Lista de precios"
+msgstr "Tarifa"
 
 #. module: easy_invoice_sale_custom
 #: model:ir.model,name:easy_invoice_sale_custom.model_sale_order
@@ -86,11 +89,12 @@ msgid "Quotation"
 msgstr "Presupuesto"
 
 #. module: easy_invoice_sale_custom
+#: model:ir.ui.view,arch_db:easy_invoice_sale_custom.easy_payment_out_group_form_cc_inherit
+msgid "Recibos"
+msgstr "Recibos"
+
+#. module: easy_invoice_sale_custom
 #: model:ir.model,name:easy_invoice_sale_custom.model_sale_order_line
 msgid "Sales Order Line"
 msgstr "Línea de orden de ventas"
 
-#. module: easy_invoice_sale_custom
-#: model:ir.model.fields,field_description:easy_invoice_sale_custom.field_res_users_total_amount_balance
-msgid "Total Balance"
-msgstr "Total Balance"
