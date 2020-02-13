@@ -12,7 +12,7 @@ class EasyInvoice(models.Model):
     def write(self,vals):
         invoice_obj =  super(EasyInvoice, self).write(vals)
         for line in self.invoice_line_ids:
-            line._onchange_product_id2()
+            line._onchange_product_id22()
         return invoice_obj
         
 
@@ -20,15 +20,5 @@ class EasyInvoice(models.Model):
     def create(self, vals):
         invoice_obj = super(EasyInvoice, self).create(vals)
         for line in invoice_obj.invoice_line_ids:
-            line._onchange_product_id2()
+            line._onchange_product_id22()
         return invoice_obj
-
-    pricelist_id = fields.Many2one('product.pricelist', string='Pricelist') 
-
-    @api.onchange('partner_id')
-    def _onchange_partner_id(self):
-        ########
-        ## en este metodo deberia de cambiar el precio de lista que se encuentra en el order sale por el que esta configurado por defecto en el partner.
-        ########
-        if self.partner_id.default_product_pricelist_id:
-            self.pricelist_id = self.partner_id.default_product_pricelist_id.id

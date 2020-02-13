@@ -2,34 +2,96 @@
 <odoo>
     <data>
 
+<!-- 
+invisible="context.get('uid', False) not in [1]"
+ -->
+
+
+    <record id="easy_payment_out_group_form_recaudation_inherit" model="ir.ui.view">
+        <field name="model">easy.payment.group</field>
+        <field name="name">Easy Payment Inherit Sabores</field>
+        <field name="inherit_id" ref="easy_invoice_recaudation.easy_payment_out_group_form_inherit" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='recaudation_id']"  position="replace">
+            </xpath>
+        </field>
+    </record>
+    
+
+    <record id="easy_payment_out_group_form_cc_inherit" model="ir.ui.view">
+        <field name="model">easy.payment.group</field>
+        <field name="name">Easy Payment Inherit Sabores</field>
+        <field name="inherit_id" ref="easy_invoice_partner_cc.easy_payment_out_group_form_inherit" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_amount_anticipe']"  position="replace">
+                    
+            </xpath>
+
+            <xpath expr="//field[@name='partner_amount']"  position="replace">
+                    <field name="partner_amount"  readonly="1"  string="Recibos" />
+
+                    <separator string="A Favor del Cliente" attrs="{'invisible': [('amount_difference', '>=', 0.0)]}" />
+                    <separator string="El Cliente Debe" attrs="{'invisible': [('amount_difference', '&lt;', 0.0)]}" />
+                    
+                    <field name="amount_difference"  readonly="1"  required="0"   />
+            </xpath>
+            
+        </field>
+    </record>
+    <!-- 
+    attrs="{'invisible': [('amount_difference', '>=', 0.0)]}"
+    attrs="{'invisible': [('amount_difference', '<', 0.0)]}"
+ -->
+
     <record id="easy_payment_out_group_form_inherit2" model="ir.ui.view">
         <field name="model">easy.payment.group</field>
         <field name="name">Easy Payment Inherit Sabores</field>
         <field name="inherit_id" ref="easy_invoice.easy_payment_out_group_form" />
         <field name="arch" type="xml">
 
+<!-- 
+            <xpath expr="//field[@name='amount2pay']"  position="before">
+                <separator string="Resumen" />  
+            </xpath>
+ -->
             <xpath expr="//field[@name='amount_money_defined']"  position="replace">
-                    <field name="amount_money_defined"  readonly="1" invisible="1" required="0" />
+                    
             </xpath>
             
-        </field>
-    </record>
-    
-<!-- 
+            <xpath expr="//field[@name='amount_total_debt']"  position="replace">
+                    
+            </xpath>
+           
 
-    <record id="easy_payment_out_group_recaudation_form_inherit" model="ir.ui.view">
-        <field name="model">easy.payment.group</field>
-        <field name="name">Easy Payment Inherit Sabores</field>
-        <field name="inherit_id" ref="easy_invoice_recaudation.easy_payment_out_group_form_inherit" />
-        <field name="arch" type="xml">
-
-            <xpath expr="//field[@name='recaudation_id']"  position="replace">
-                    <field name="recaudation_id"  invisible="1" required="0" />
+            <xpath expr="//field[@name='amount_money']"  position="replace">
+                    
+            </xpath>
+            
+            <xpath expr="//field[@name='user_id']"  position="replace">
+                    
             </xpath>
 
+            <xpath expr="//notebook"  position="inside">
+                <page  name="data_page" string="Other Information" invisible="context.get('uid', False) not in [1]">
+                    <group >
+                        <field name="recaudation_id"  readonly="0" required="0" />
+                        <field name="partner_amount_anticipe"  readonly="0"  required="0" />
+                        <field name="amount_money_defined"  readonly="0"  required="0" />
+                        <field name="amount_total_debt"  readonly="0"  required="0" />
+                        <field name="amount_money"  readonly="0"  required="0" />
+                        <field name="user_id"  readonly="0"  required="0" />
+                        <field name="partner_cc_id"  readonly="0"  required="0" />
+                    </group>
+                </page>
+            </xpath>
+
+
         </field>
     </record>
- -->
+
+
+
+
 
   </data>
 </odoo>
