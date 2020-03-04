@@ -20,6 +20,7 @@
         'views/sale_view.xml',
         'views/easy_invoice.xml',
         'views/account_invoice.xml',
+        'views/res_config_settings_view.xml',
     ],
 
     'demo': [
