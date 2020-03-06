@@ -11,7 +11,7 @@
 
 
             <xpath expr="//field[@name='total_amount_debit']" position="after">
-                <field name="default_product_pricelist_id"/>
+                <field name="property_product_pricelist"/>
             </xpath>
 
 
