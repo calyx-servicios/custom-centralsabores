@@ -14,7 +14,8 @@
     'depends' : [
         'base',
         'easy_invoice',
-        'easy_invoice_recaudation'
+        'easy_invoice_recaudation',
+        'easy_invoice_reports',
         ],
     'data': [
         'report/payment_group_report.xml',
