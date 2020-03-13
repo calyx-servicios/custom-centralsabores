@@ -220,7 +220,7 @@
               <span style="padding-right:5px;">
                 <strong>Importe Total</strong>
               </span>
-              <span t-field="doc.partner_amount" style="padding-right: 20px;" />
+              <span t-field="doc.amount_money" style="padding-right: 20px;" />
             </td>
           </tr>
         </tbody>
