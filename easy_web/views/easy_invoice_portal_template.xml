@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="easy_web.portal_my_home_menu_easy_invoice" name="Portal layout : easy invoice menu entries" inherit_id="portal.portal_layout" priority="10">
+            <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+                <li t-if="page_name == 'easy invoice'" t-attf-class="breadcrumb-item #{'active ' if not invoice else ''}">
+                    <a t-if="invoice" t-attf-href="/my/easy_invoices?{{ keep_query() }}">Facturas Rápidas</a>
+                    <t t-else="">Facturas Rápidas</t>
+                </li>
+            </xpath>
+        </template>
+
+        <template id="easy_web.portal_easy_invoice" name="Portal My Home : easy invoice entries" inherit_id="portal.portal_my_home" priority="21">
+            <xpath expr="//ul[hasclass('o_portal_docs')]" position="inside">
+                <li class="list-group-item">
+                    <span class="badge" t-esc="easy_invoice_count"/>
+                    <a href="/my/easy_invoices">Facturas Rápidas</a>
+                </li>
+            </xpath>
+        </template>
+
+        <template id="easy_web.portal_my_easy_invoices" name="Easy Invoice">
+            <t t-call="portal.portal_layout">
+                <t t-set="breadcrumbs_searchbar" t-value="True"/>
+                <h3>Facturas Rápidas
+                    <t t-call="portal.portal_searchbar">
+                    </t>
+                </h3>
+                <t t-if="not invoices">
+                    <p>Actualmente no hay facturas y pagos para su cuenta.</p>
+                </t>
+                <t t-if="invoices" t-call="easy_web.portal_table">
+                    <thead>
+                        <tr class="active">
+                            <th>Factura #</th>
+                            <th>Fecha</th>
+                            <th class='d-none d-md-table-cell'>Fecha de Vencimiento</th>
+                            <th>Estado</th>
+                            <th class="text-right">Monto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="invoices" t-as="invoice">
+                            <tr>
+                                <td>
+                                    <a t-attf-href="/my/easy_invoices/{{(invoice.id)}}" t-att-title="invoice.name">
+                                        <t t-esc="invoice.name" t-if="invoice.name"/>
+                                        <em t-else="">Factura Borrador</em>
+                                    </a>
+                                </td>
+                                <td>
+                                    <span t-field="invoice.date_invoice"/>
+                                </td>
+                                <td class='d-none d-md-table-cell'>
+                                    <span t-field="invoice.date_expiration"/>
+                                </td>
+                                <td class="tx_status">
+                                    <t t-if="invoice.state == 'open'">
+                                        <span class="badge badge-pill badge-info">
+                                            <i class="fa fa-fw fa-clock-o" aria-label="Opened" title="Opened" role="img"></i>
+                                            <span class="d-none d-md-inline"> Esperando Pago</span>
+                                        </span>
+                                    </t>
+                                    <t t-if="invoice.state == 'paid'">
+                                        <span class="badge badge-pill badge-success">
+                                            <i class="fa fa-fw fa-check" aria-label="Paid" title="Paid" role="img"></i>
+                                            <span class="d-none d-md-inline"> Pagado</span>
+                                        </span>
+                                    </t>
+                                    <t t-if="invoice.state == 'cancel'">
+                                        <span class="badge badge-pill badge-warning">
+                                            <i class="fa fa-fw fa-remove" aria-label="Cancelled" title="Cancelled" role="img"></i>
+                                            <span class="d-none d-md-inline"> Cancelado</span>
+                                        </span>
+                                    </t>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="-invoice.amount_total if invoice.type == 'out refund' else invoice.amount_total" t-options='{"widget": "monetary", "display_currency": invoice.currency_id}'/>
+                                </td>
+                            </tr>
+                        </t>
+                        <tr>
+                            <td colspan="4" style="text-align: right;">
+                                <span style="font-weight: bold;">Total:</span>
+                            </td>
+                            <td>
+                                $                                <span t-esc="easy_invoices_total"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </t>
+            </t>
+        </template>
+
+        <template id="easy_web.portal_table" name="My Portal Table">
+            <div t-attf-class="table-responsive border rounded border-top-0 #{classes if classes else ''}">
+                <table class="table rounded mb-0 bg-white o_portal_my_doc_table">
+                    <t t-raw="0"/>
+                </table>
+            </div>
+            <div t-if="pager" class="o_portal_pager text-center">
+                <t t-call="portal.pager"/>
+            </div>
+        </template>
+
+        <template id="easy_web.portal_easy_invoice_sidebars" name="Sidebar">
+            <t t-call="portal.portal_layout">
+                <body data-spy="scroll" data-target=".navspy" data-offset="50">
+                    <div class="container o_portal_sidebar">
+                    </div>
+                    <div class="oe_structure mb32" id="oe_structure_portal_sidebar_12"/>
+                </body>
+            </t>
+        </template>
+
+        <template id="easy_web.portal_easy_invoice_page_detail" name="Easy Invoice Portal Template" inherit_id="easy_web.portal_easy_invoice_sidebars" primary="True">
+            <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4>Factura <span t-field="invoice.name"/>
+                                </h4>
+                            </div>
+                            <div class="col-md-6">
+                                <a t-attf-href="pdf/{{(invoice.id)}}" t-att-title="Descargar" class="pull-right" target="_blank">
+                                    <i class="fa fa-download fa-2x" aria-hidden="true">
+                                    </i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <address>
+                                    <span style="font-weight: bold;"> Dirección del cliente</span>
+                                    <div>
+                                        <span t-if="invoice.partner_id.name" t-field="invoice.partner_id.name"/>
+                                    </div>
+                                    <div>
+                                        <span t-field="invoice.partner_id.street" />
+                                        <br/>
+                                        <span t-field="invoice.partner_id.city"/>
+                                        <span t-field="invoice.partner_id.zip"/>
+                                        <br/>
+                                        <span t-field="invoice.partner_id.country_id.name" />
+                                    </div>
+                                </address>
+                            </div>
+                        </div>
+                        <div class="row mt32 mb32">
+                            <div class="col-xs-2">
+                                <span style="font-weight: bold;"> Fecha Factura:</span>
+                                <p>
+                                    <span t-field="invoice.date_invoice"/>
+                                </p>
+                            </div>
+                            <div class="col-xs-2">
+                                <span style="font-weight: bold;"> Fecha de Vencimiento:</span>
+                                <p>
+                                    <span t-field="invoice.date_expiration"/>
+                                </p>
+                            </div>
+                            <div class="col-xs-2">
+                                <span style="font-weight: bold;"> Origen:</span>
+                                <p>
+                                    <span t-field="invoice.sale_order_id.name"/>
+                                </p>
+                            </div>
+                        </div>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Descripción</th>
+                                    <th>Cuenta Analítica</th>
+                                    <th class="text-right">Cantidad</th>
+                                    <th class="text-right">Precio Unitario</th>
+                                    <th class="text-right">Importe</th>
+                                </tr>
+                            </thead>
+                            <tbody class="o_portal_report_tbody">
+                                <t t-foreach="invoice.invoice_line_ids" t-as="line">
+                                    <tr>
+                                        <td>
+                                            <span t-if="line.name" t-field="line.name"/>
+                                            <span t-else="" t-field="line.product_id.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="line.analytic_account_id.name"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="line.quantity"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="line.price_unit"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="line.price_subtotal"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr></tr>
+                                <tr></tr>
+                                <tr></tr>
+
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-xs-4 pull-right">
+                                <table class="table table-condensed">
+                                    <tbody>
+                                        <tr class="boder black">
+                                            <td>
+                                                <span style="font-weight: bold;">Total</span>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="invoice.amount_total"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <!-- INVOICES -->
+
+        <template id="easy_web.portal_invoice_total" name="Portal: Total invoices portal" inherit_id="account.portal_my_invoices" priority="1">
+            <xpath expr="//table[hasclass('o_portal_my_doc_table')]" position="inside">
+                <tr>
+                    <td colspan="4" style="text-align: right;">
+                        <span style="font-weight: bold;">Total:</span>
+                    </td>
+                    <td>
+                        $                        <span t-esc="total_invoices"/>
+                    </td>
+                </tr>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>
