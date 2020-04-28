@@ -10,9 +10,11 @@
     "website": "http://www.calyxservicios.com.ar",
     "category": "Customs",
     "version": "11.0.1.0.0",
-    "depends": ["easy_invoice", "portal", "website"],
+    "depends": ["easy_invoice", "portal", "website", "account"],
     "data": [
         # 'views/sale_views.xml',
-        "views/easy_portal_template.xml",
+        "views/easy_invoice_portal_template.xml",
+        "views/easy_partner_portal_template.xml",
+        "security/ir.model.access.csv",
     ],
 }

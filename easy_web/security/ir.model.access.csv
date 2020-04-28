@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_easy_invoice_portal,easy_Web.easy.invoice.portal,easy_invoice.model_easy_invoice,base.group_portal,1,0,0,0
+access_easy_invoice_line_portal,easy_web.easy.invoice.line.portal,easy_invoice.model_easy_invoice_line,base.group_portal,1,0,0,0
+access_easy_payment_portal,easy_web.easy.payemnt.portal,easy_invoice.model_easy_payment,base.group_portal,1,0,0,0
+access_easy_partner_portal,easy_web.easy.partner.portal,easy_invoice_partner_cc.model_easy_partner_cc,base.group_portal,1,0,0,0
