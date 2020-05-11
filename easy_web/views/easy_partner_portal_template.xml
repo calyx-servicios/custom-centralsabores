@@ -9,23 +9,47 @@
                 <t t-call="easy_web.portal_table">
                     <thead>
                         <tr class="active">
+                            <t t-if="portal_responsable">
+                                <th class="text-right">Cliente</th>
+                            </t>
                             <th class="text-right">Balance</th>
                             <th class="text-right">Odoo Balance</th>
                             <th class="text-right">Total Balance</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="text-right">
-                                $                                <span t-esc="easy_amount_balance"/>
-                            </td>
-                            <td class="text-right">
-                                $                                <span t-esc="odoo_amount_balance"/>
-                            </td>
-                            <td class="text-right">
-                                $                                <span t-esc="total_easy_amount_balance"/>
-                            </td>
-                        </tr>
+                        <t t-foreach="partner_balance" t-as="partner">
+                            <tr>
+                                <t t-if="portal_responsable">
+                                    <td class="text-right">
+                                        <span t-esc="partner.name"/>
+                                    </td>
+                                </t>
+                                <td class="text-right">
+                                    <span t-esc="partner.easy_amount_balance"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="partner.amount_balance"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="partner.total_amount_balance"/>
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-if="portal_responsable">
+                            <tr>
+                                <td class="text-right" style="font-weight:bold">Totales:</td>
+                                <td class="text-right">
+                                    $                                    <span t-esc="easy_amount_balance"/>
+                                </td>
+                                <td class="text-right">
+                                    $                                    <span t-esc="odoo_amount_balance"/>
+                                </td>
+                                <td class="text-right">
+                                    $                                    <span t-esc="total_easy_amount_balance"/>
+                                </td>
+                            </tr>
+                        </t>
                     </tbody>
                 </t>
 
@@ -41,7 +65,7 @@
             </xpath>
         </template>
 
-        <template id="easy_web.portal_easy_partner" name="Portal My Home : easy partner entries" inherit_id="portal.portal_my_home" priority="20">
+        <template id="easy_web.portal_easy_partner" name="Portal My Home : easy partner entries" inherit_id="portal.portal_my_home" priority="32">
             <xpath expr="//ul[hasclass('o_portal_docs')]" position="inside">
                 <li class="list-group-item">
                     <span class="badge" t-esc="easy_partner_count"/>
@@ -63,6 +87,9 @@
                 <t t-if="receipts" t-call="easy_web.portal_table">
                     <thead>
                         <tr class="active">
+                            <t t-if="portal_responsable">
+                                <th>Cliente</th>
+                            </t>
                             <th>Recibos de Cliente/Adelantos de Proveedor</th>
                             <th>Fecha</th>
                             <th class='d-none d-md-table-cell'>Comercial</th>
@@ -73,8 +100,12 @@
                     <tbody>
                         <t t-foreach="receipts" t-as="receipt">
                             <tr>
+                                <t t-if="portal_responsable">
+                                    <td>
+                                        <span t-field="receipt.partner_id.name"/>
+                                    </td>
+                                </t>
                                 <td>
-                                    <!-- <a t-attf-href="/my/easy_partner/{{(receipt.id)}}" t-att-title="receipt.description"> -->
                                     <span>
                                         <t t-esc="receipt.description" t-if="receipt.description"/>
                                         <em t-else=""></em>
@@ -95,9 +126,16 @@
                             </tr>
                         </t>
                         <tr>
-                            <td colspan="3" style="text-align: right;">
-                                <span style="font-weight: bold;">Total:</span>
-                            </td>
+                            <t t-if="portal_responsable">
+                                <td colspan="4" style="text-align: right;">
+                                    <span style="font-weight: bold;">Total:</span>
+                                </td>
+                            </t>
+                            <t t-else="">
+                                <td colspan="3" style="text-align: right;">
+                                    <span style="font-weight: bold;">Total:</span>
+                                </td>
+                            </t>
                             <td>
                                 $                                <span t-esc="receipt_total"/>
                             </td>
