@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="easy_web.portal_my_home_balance" name="Portal layout : menu entries" inherit_id="portal.portal_my_home" priority="-1">
+            <xpath expr="//div[hasclass('o_portal_my_home')]" position="inside">
+                <div class="oe_structure"/>
+                <h3 class="page-header">Saldo Cuenta Corriente</h3>
+                <t t-call="easy_web.portal_table">
+                    <thead>
+                        <tr class="active">
+                            <t t-if="portal_responsable">
+                                <th class="text-right">Cliente</th>
+                            </t>
+                            <th class="text-right">Balance</th>
+                            <th class="text-right">Odoo Balance</th>
+                            <th class="text-right">Total Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="partner_balance" t-as="partner">
+                            <tr>
+                                <t t-if="portal_responsable">
+                                    <td class="text-right">
+                                        <span t-esc="partner.name"/>
+                                    </td>
+                                </t>
+                                <td class="text-right">
+                                    <span t-esc="partner.easy_amount_balance"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="partner.amount_balance"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="partner.total_amount_balance"/>
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-if="portal_responsable">
+                            <tr>
+                                <td class="text-right" style="font-weight:bold">Totales:</td>
+                                <td class="text-right">
+                                    $                                    <span t-esc="easy_amount_balance"/>
+                                </td>
+                                <td class="text-right">
+                                    $                                    <span t-esc="odoo_amount_balance"/>
+                                </td>
+                                <td class="text-right">
+                                    $                                    <span t-esc="total_easy_amount_balance"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </t>
+
+            </xpath>
+        </template>
+
+        <template id="easy_web.portal_my_home_menu_easy_partner" name="Portal layout : easy partner menu entries" inherit_id="portal.portal_layout" priority="9">
+            <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+                <li t-if="page_name == 'easy partner'" t-attf-class="breadcrumb-item #{'active ' if not receipt else ''}">
+                    <a t-if="receipt" t-attf-href="/my/easy_partner?{{ keep_query() }}">Recibos de Cliente/Adelantos de Proveedor</a>
+                    <t t-else="">Recibos de Cliente/Adelantos de Proveedor</t>
+                </li>
+            </xpath>
+        </template>
+
+        <template id="easy_web.portal_easy_partner" name="Portal My Home : easy partner entries" inherit_id="portal.portal_my_home" priority="32">
+            <xpath expr="//ul[hasclass('o_portal_docs')]" position="inside">
+                <li class="list-group-item">
+                    <span class="badge" t-esc="easy_partner_count"/>
+                    <a href="/my/easy_partner">Recibos de Cliente/Adelantos de Proveedor</a>
+                </li>
+            </xpath>
+        </template>
+
+        <template id="easy_web.portal_my_easy_invoice_partner" name="Easy Invoice Partner CC">
+            <t t-call="portal.portal_layout">
+                <t t-set="breadcrumbs_searchbar" t-value="True"/>
+                <h3>Recibos de Cliente/Adelantos de Proveedor
+                    <t t-call="portal.portal_searchbar">
+                    </t>
+                </h3>
+                <t t-if="not receipts">
+                    <p>There are currently no receipts or advancement for your account.</p>
+                </t>
+                <t t-if="receipts" t-call="easy_web.portal_table">
+                    <thead>
+                        <tr class="active">
+                            <t t-if="portal_responsable">
+                                <th>Cliente</th>
+                            </t>
+                            <th>Recibos de Cliente/Adelantos de Proveedor</th>
+                            <th>Fecha</th>
+                            <th class='d-none d-md-table-cell'>Comercial</th>
+                            <th class="text-right">Recibos</th>
+                            <th class="text-right">Adelantos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="receipts" t-as="receipt">
+                            <tr>
+                                <t t-if="portal_responsable">
+                                    <td>
+                                        <span t-field="receipt.partner_id.name"/>
+                                    </td>
+                                </t>
+                                <td>
+                                    <span>
+                                        <t t-esc="receipt.description" t-if="receipt.description"/>
+                                        <em t-else=""></em>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span t-field="receipt.date"/>
+                                </td>
+                                <td class='d-none d-md-table-cell'>
+                                    <span t-field="receipt.user_id.name"/>
+                                </td>
+                                <td class="text-right">
+                                    $                                    <span t-esc="receipt.amount_anticipe"/>
+                                </td>
+                                <td class="text-right">
+                                    $                                    <span t-esc="receipt.amount_advancement"/>
+                                </td>
+                            </tr>
+                        </t>
+                        <tr>
+                            <t t-if="portal_responsable">
+                                <td colspan="4" style="text-align: right;">
+                                    <span style="font-weight: bold;">Total:</span>
+                                </td>
+                            </t>
+                            <t t-else="">
+                                <td colspan="3" style="text-align: right;">
+                                    <span style="font-weight: bold;">Total:</span>
+                                </td>
+                            </t>
+                            <td>
+                                $                                <span t-esc="receipt_total"/>
+                            </td>
+                            <td>
+                                $                                <span t-esc="receipt_advancement"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </t>
+            </t>
+        </template>
+
+    </data>
+
+</odoo>
