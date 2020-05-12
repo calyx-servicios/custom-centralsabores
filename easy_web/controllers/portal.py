@@ -10,12 +10,14 @@ from odoo.exceptions import AccessError, MissingError, UserError
 from odoo.http import request, content_disposition
 from odoo.osv.expression import OR
 from collections import OrderedDict
+from datetime import datetime
 
 
 class PortalEasy(CustomerPortal):
     def _prepare_portal_layout_values(self):
         values = super(PortalEasy, self)._prepare_portal_layout_values()
-        partner = request.env["res.users"].browse(request.uid).partner_id
+        # partner = request.env["res.users"].browse(request.uid).partner_id
+        partner = request.env.user.partner_id
         partners = []
 
         for contacts in partner.portal_partners_ids:
@@ -52,9 +54,11 @@ class PortalEasy(CustomerPortal):
 
         values["easy_invoice_count"] = invoice_count
         values["easy_partner_count"] = easy_partner_count
-        values["easy_amount_balance"] = easy_amount_balance
-        values["odoo_amount_balance"] = odoo_amount_balance
-        values["total_easy_amount_balance"] = total_easy_amount_balance
+        values["easy_amount_balance"] = "%.2f" % easy_amount_balance
+        values["odoo_amount_balance"] = "%.2f" % odoo_amount_balance
+        values["total_easy_amount_balance"] = (
+            "%.2f" % total_easy_amount_balance
+        )
 
         portal_responsable = False
 
@@ -88,7 +92,8 @@ class PortalEasy(CustomerPortal):
         **kw
     ):
         values = {}
-        partner = request.env["res.users"].browse(request.uid).partner_id
+        # partner = request.env["res.users"].browse(request.uid).partner_id
+        partner = request.env.user.partner_id
 
         partners = []
 
@@ -144,6 +149,10 @@ class PortalEasy(CustomerPortal):
                     "<span class='nolabel'>Buscar con </span>Productos"
                 ),
             },
+            "date": {
+                "input": "date",
+                "label": _("<span class='nolabel'>Buscar con </span>Fecha"),
+            },
             "all": {"input": "all", "label": _("Search in All")},
         }
         # default sort by order
@@ -168,6 +177,15 @@ class PortalEasy(CustomerPortal):
             if search_in in ("customer", "all"):
                 search_domain = OR(
                     [search_domain, [("partner_id.name", "ilike", search)]]
+                )
+            if search_in in ("date"):
+                try:
+                    date = datetime.strptime(search, "%d/%m/%Y")
+                    date_f = datetime.strftime(date, "%Y-%m-%d")
+                except:
+                    date_f = search
+                search_domain = OR(
+                    [search_domain, [("date_invoice", ">=", date_f)]]
                 )
             if search_in == "product":
                 search_domain = [
@@ -252,7 +270,8 @@ class PortalEasy(CustomerPortal):
         **kw
     ):
 
-        partner = request.env["res.users"].browse(request.uid).partner_id
+        # partner = request.env["res.users"].browse(request.uid).partner_id
+        partner = request.env.user.partner_id
 
         try:
             invoice_sudo = self._document_check_easy_access(
@@ -306,7 +325,9 @@ class PortalEasy(CustomerPortal):
         self, easy_invoice_id, access_token=None, **kw
     ):
 
-        partner = request.env["res.users"].browse(request.uid).partner_id
+        # partner = request.env["res.users"].browse(request.uid).partner_id
+        partner = request.env.user.partner_id
+
         try:
             invoice_sudo = self._document_check_easy_access(
                 "easy.invoice", easy_invoice_id, partner
@@ -343,7 +364,8 @@ class PortalEasy(CustomerPortal):
         **kw
     ):
         values = {}
-        partner = request.env["res.users"].browse(request.uid).partner_id
+        # partner = request.env["res.users"].browse(request.uid).partner_id
+        partner = request.env.user.partner_id
         partners = []
 
         for contacts in partner.portal_partners_ids:

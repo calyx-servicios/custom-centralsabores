@@ -2,7 +2,7 @@
 <odoo>
     <data>
 
-        <template id="easy_web.portal_my_home_balance" name="Portal layout : menu entries" inherit_id="portal.portal_my_home" priority="-1">
+        <template id="easy_web.portal_my_home_balance" name="Portal layout : menu entries" inherit_id="portal.portal_my_home" priority="1">
             <xpath expr="//div[hasclass('o_portal_my_home')]" position="inside">
                 <div class="oe_structure"/>
                 <h3 class="page-header">Saldo Cuenta Corriente</h3>
