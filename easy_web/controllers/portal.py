@@ -131,12 +131,18 @@ class PortalEasy(CustomerPortal):
             "invoice": {
                 "input": "invoice",
                 "label": _(
-                    "Buscar <span class='nolabel'> (en Facturas) </span>"
+                    "<span class='nolabel'>Buscar  </span>(en Facturas)"
                 ),
             },
             "customer": {
                 "input": "customer",
                 "label": _("Search in Customer"),
+            },
+            "product": {
+                "input": "product",
+                "label": _(
+                    "<span class='nolabel'>Buscar con </span>Productos"
+                ),
             },
             "all": {"input": "all", "label": _("Search in All")},
         }
@@ -163,6 +169,11 @@ class PortalEasy(CustomerPortal):
                 search_domain = OR(
                     [search_domain, [("partner_id.name", "ilike", search)]]
                 )
+            if search_in == "product":
+                search_domain = [
+                    ("invoice_line_ids.product_id.name", "ilike", search)
+                ]
+
             domain += search_domain
 
         if not filterby:
@@ -190,6 +201,7 @@ class PortalEasy(CustomerPortal):
         invoices = AccountInvoice.sudo().search(
             domain, order=order, limit=items_per_page, offset=pager["offset"],
         )
+
         request.session["my_invoices_history"] = invoices.ids[:100]
 
         easy_invoices_total = 0

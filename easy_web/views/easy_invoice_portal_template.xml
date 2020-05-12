@@ -4,9 +4,9 @@
 
         <template id="easy_web.portal_my_home_menu_easy_invoice" name="Portal layout : easy invoice menu entries" inherit_id="portal.portal_layout" priority="10">
             <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
-                <li t-if="page_name == 'easy invoice'" t-attf-class="breadcrumb-item #{'active ' if not invoice else ''}">
-                    <a t-if="invoice" t-attf-href="/my/easy_invoices?{{ keep_query() }}">Facturas Rápidas</a>
-                    <t t-else="">Facturas Rápidas</t>
+                <li t-if="page_name == 'easy invoice'" class="active">
+                    <!-- <a t-if="invoice" t-attf-href="/my/easy_invoices?{{ keep_query() }}">Facturas Rápidas</a> -->
+                    <t>Facturas Rápidas</t>
                 </li>
             </xpath>
         </template>
@@ -231,9 +231,9 @@
                             <tbody class="o_portal_report_tbody">
                                 <t t-foreach="invoice.invoice_line_ids" t-as="line">
                                     <tr>
-                                        <td>
-                                            <span t-if="line.name" t-field="line.name"/>
-                                            <span t-else="" t-field="line.product_id.name"/>
+                                        <td style="width: 45%;">
+                                            [                                            <span t-field="line.product_id.default_code"/>
+]                                            <span t-field="line.product_id.name"/>
                                         </td>
                                         <td>
                                             <span t-field="line.analytic_account_id.name"/>
