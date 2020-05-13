@@ -12,6 +12,9 @@
     "version": "11.0.1.0.0",
     "depends": [
         "base",
+        "contacts",
+        "l10n_ar_partner",
+        "l10n_ar_account",
         "easy_invoice",
         "easy_invoice_partner_cc",
         "portal",
