@@ -1,0 +1,400 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* easy_web
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0-20191106\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-05-13 20:44+0000\n"
+"PO-Revision-Date: 2020-05-13 20:44+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: easy_web
+#: code:addons/easy_web/controllers/portal.py:511
+#, python-format
+msgid "%s is not the reference of a report"
+msgstr "%s No es una referencia para un reporte"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_my_easy_invoices
+msgid "<span class=\"badge badge-pill badge-info\">\n"
+"                                            <i class=\"fa fa-fw fa-clock-o\" aria-label=\"Opened\" title=\"Opened\" role=\"img\"/>\n"
+"                                            <span class=\"d-none d-md-inline\"> Esperando Pago</span>\n"
+"                                        </span>"
+msgstr "<span class=\"badge badge-pill badge-info\">\n"
+"                                            <i class=\"fa fa-fw fa-clock-o\" aria-label=\"Opened\" title=\"Opened\" role=\"img\"/>\n"
+"                                            <span class=\"d-none d-md-inline\"> Esperando Pago</span>\n"
+"                                        </span>"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_my_easy_invoices
+msgid "<span class=\"badge badge-pill badge-success\">\n"
+"                                            <i class=\"fa fa-fw fa-check\" aria-label=\"Paid\" title=\"Paid\" role=\"img\"/>\n"
+"                                            <span class=\"d-none d-md-inline\"> Pagado</span>\n"
+"                                        </span>"
+msgstr "<span class=\"badge badge-pill badge-success\">\n"
+"                                            <i class=\"fa fa-fw fa-check\" aria-label=\"Paid\" title=\"Paid\" role=\"img\"/>\n"
+"                                            <span class=\"d-none d-md-inline\"> Pagado</span>\n"
+"                                        </span>"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_my_easy_invoices
+msgid "<span class=\"badge badge-pill badge-warning\">\n"
+"                                            <i class=\"fa fa-fw fa-remove\" aria-label=\"Cancelled\" title=\"Cancelled\" role=\"img\"/>\n"
+"                                            <span class=\"d-none d-md-inline\"> Cancelado</span>\n"
+"                                        </span>"
+msgstr "<span class=\"badge badge-pill badge-warning\">\n"
+"                                            <i class=\"fa fa-fw fa-remove\" aria-label=\"Cancelled\" title=\"Cancelled\" role=\"img\"/>\n"
+"                                            <span class=\"d-none d-md-inline\"> Cancelado</span>\n"
+"                                        </span>"
+
+#. module: easy_web
+#: code:addons/easy_web/controllers/portal.py:138
+#, python-format
+msgid "<span class='nolabel'>Buscar  </span>(en Facturas)"
+msgstr "<span class='nolabel'>Buscar  </span>(en Facturas)"
+
+#. module: easy_web
+#: code:addons/easy_web/controllers/portal.py:154
+#, python-format
+msgid "<span class='nolabel'>Buscar con </span>Fecha"
+msgstr "<span class='nolabel'>Buscar con </span>Fecha"
+
+#. module: easy_web
+#: code:addons/easy_web/controllers/portal.py:148
+#, python-format
+msgid "<span class='nolabel'>Buscar con </span>Productos"
+msgstr "<span class='nolabel'>Buscar con </span>Productos"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_easy_invoice_page_detail
+msgid "<span style=\"font-weight: bold;\"> Dirección del cliente</span>"
+msgstr "<span style=\"font-weight: bold;\"> Dirección del cliente</span>"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_easy_invoice_page_detail
+msgid "<span style=\"font-weight: bold;\"> Fecha Factura:</span>"
+msgstr "<span style=\"font-weight: bold;\"> Fecha Factura:</span>"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_easy_invoice_page_detail
+msgid "<span style=\"font-weight: bold;\"> Fecha de Vencimiento:</span>"
+msgstr "<span style=\"font-weight: bold;\"> Fecha de Vencimiento:</span>"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_easy_invoice_page_detail
+msgid "<span style=\"font-weight: bold;\"> Origen:</span>"
+msgstr "<span style=\"font-weight: bold;\"> Origen:</span>"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_my_easy_invoice_partner
+#: model:ir.ui.view,arch_db:easy_web.portal_my_easy_invoices
+msgid "<span style=\"font-weight: bold;\">Total:</span>"
+msgstr "<span style=\"font-weight: bold;\">Total:</span>"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_easy_invoice_page_detail
+msgid "<span style=\"font-weight: bold;\">Total</span>"
+msgstr "<span style=\"font-weight: bold;\">Total</span>"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_my_easy_invoices
+msgid "Actualmente no hay facturas y pagos para su cuenta, recuerde que para buscar por fecha el formato es <span style=\"font-weight:bold\">\"dd/mm/yyyy\"</span>"
+msgstr "Actualmente no hay facturas y pagos para su cuenta, recuerde que para buscar por fecha el formato es <span style=\"font-weight:bold\">\"dd/mm/yyyy\"</span>"
+
+#. module: easy_web
+#: code:addons/easy_web/controllers/portal.py:392
+#: model:ir.ui.view,arch_db:easy_web.portal_my_easy_invoice_partner
+#, python-format
+msgid "Adelantos"
+msgstr "Adelantos"
+
+#. module: easy_web
+#: code:addons/easy_web/controllers/portal.py:124
+#: code:addons/easy_web/controllers/portal.py:390
+#, python-format
+msgid "All"
+msgstr "All"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_my_home_balance
+msgid "Balance"
+msgstr "Saldo"
+
+#. module: easy_web
+#: code:addons/easy_web/controllers/portal.py:404
+#, python-format
+msgid "Buscar <span class='nolabel'> (en Referencia) </span>"
+msgstr "Buscar <span class='nolabel'> (en Referencia) </span>"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_easy_invoice_page_detail
+msgid "Cantidad"
+msgstr "Cantidad"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_my_easy_invoice_partner
+#: model:ir.ui.view,arch_db:easy_web.portal_my_easy_invoices
+#: model:ir.ui.view,arch_db:easy_web.portal_my_home_balance
+msgid "Cliente"
+msgstr "Cliente"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_my_easy_invoice_partner
+msgid "Comercial"
+msgstr "Comercial"
+
+#. module: easy_web
+#: model:ir.model,name:easy_web.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: easy_web
+#: model:ir.model.fields,field_description:easy_web.field_res_partner_portal_contacts_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: easy_web
+#: model:ir.model.fields,field_description:easy_web.field_res_partner_portal_contacts_create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_easy_invoice_page_detail
+msgid "Cuenta Analítica"
+msgstr "Cuenta Analítica"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_easy_invoice_page_detail
+msgid "Descripción"
+msgstr "Descripción"
+
+#. module: easy_web
+#: model:ir.model.fields,field_description:easy_web.field_res_partner_portal_contacts_display_name
+msgid "Display Name"
+msgstr "Mostrar Nombre"
+
+#. module: easy_web
+#: code:addons/easy_web/controllers/portal.py:116
+#, python-format
+msgid "Due Date"
+msgstr "Fecha vencimiento"
+
+#. module: easy_web
+#: model:ir.model,name:easy_web.model_easy_invoice
+msgid "Easy Invoice"
+msgstr "Factura"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_my_easy_invoices
+msgid "Estado"
+msgstr "Estado"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_easy_invoice_page_detail
+msgid "Factura"
+msgstr "Factura"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_my_easy_invoices
+msgid "Factura #"
+msgstr "Factura #"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_my_easy_invoices
+msgid "Factura Borrador"
+msgstr "Factura Borrador"
+
+#. module: easy_web
+#: code:addons/easy_web/controllers/portal.py:130
+#, python-format
+msgid "Facturas"
+msgstr "Facturas"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_easy_invoice
+#: model:ir.ui.view,arch_db:easy_web.portal_my_easy_invoices
+#: model:ir.ui.view,arch_db:easy_web.portal_my_home_menu_easy_invoice
+msgid "Facturas Rápidas"
+msgstr "Facturas Rápidas"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_my_easy_invoice_partner
+#: model:ir.ui.view,arch_db:easy_web.portal_my_easy_invoices
+msgid "Fecha"
+msgstr "Fecha"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_my_easy_invoices
+msgid "Fecha de Vencimiento"
+msgstr "Fecha de Vencimiento"
+
+#. module: easy_web
+#: model:ir.model.fields,field_description:easy_web.field_res_partner_portal_contacts_id
+msgid "ID"
+msgstr "ID"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_easy_invoice_page_detail
+msgid "Importe"
+msgstr "Importe"
+
+#. module: easy_web
+#: code:addons/easy_web/controllers/portal.py:505
+#, python-format
+msgid "Invalid report type: %s"
+msgstr "Reporte Invalido Tipo: %s"
+
+#. module: easy_web
+#: code:addons/easy_web/controllers/portal.py:114
+#: code:addons/easy_web/controllers/portal.py:382
+#, python-format
+msgid "Invoice Date"
+msgstr "Fecha de la factura"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.res_partner_portal
+msgid "Invoice Lines"
+msgstr "Factura"
+
+#. module: easy_web
+#: model:ir.model.fields,field_description:easy_web.field_res_partner_portal_contacts___last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: easy_web
+#: model:ir.model.fields,field_description:easy_web.field_res_partner_portal_contacts_write_uid
+msgid "Last Updated by"
+msgstr "Última actualización realizada por"
+
+#. module: easy_web
+#: model:ir.model.fields,field_description:easy_web.field_res_partner_portal_contacts_write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_my_easy_invoices
+msgid "Monto"
+msgstr "Monto"
+
+#. module: easy_web
+#: code:addons/easy_web/controllers/portal.py:126
+#, python-format
+msgid "Notas de Credito"
+msgstr "Notas de Credito"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_my_home_balance
+msgid "Odoo Balance"
+msgstr "Odoo Balance"
+
+#. module: easy_web
+#: model:ir.model.fields,field_description:easy_web.field_res_partner_portal_contacts_partner_portal_id
+msgid "Partner Portal"
+msgstr "Cliente Portal"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.res_partner_portal
+msgid "Portal"
+msgstr "Portal"
+
+#. module: easy_web
+#: model:ir.model.fields,field_description:easy_web.field_res_partner_portal_partners_ids
+#: model:ir.model.fields,field_description:easy_web.field_res_users_portal_partners_ids
+msgid "Portal Contact"
+msgstr "Contacto de Portal"
+
+#. module: easy_web
+#: model:ir.model.fields,field_description:easy_web.field_res_partner_portal_responsable
+#: model:ir.model.fields,field_description:easy_web.field_res_users_portal_responsable
+msgid "Portal Responsable"
+msgstr "¿Responsable de Portal?"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_easy_invoice_page_detail
+msgid "Precio Unitario"
+msgstr "Precio Unitario"
+
+#. module: easy_web
+#: code:addons/easy_web/controllers/portal.py:396
+#: model:ir.ui.view,arch_db:easy_web.portal_my_easy_invoice_partner
+#, python-format
+msgid "Recibos"
+msgstr "Recibos"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_easy_partner
+#: model:ir.ui.view,arch_db:easy_web.portal_my_easy_invoice_partner
+#: model:ir.ui.view,arch_db:easy_web.portal_my_home_menu_easy_partner
+msgid "Recibos de Cliente/Adelantos de Proveedor"
+msgstr "Recibos de Cliente/Adelantos de Proveedor"
+
+#. module: easy_web
+#: code:addons/easy_web/controllers/portal.py:119
+#: code:addons/easy_web/controllers/portal.py:384
+#, python-format
+msgid "Reference"
+msgstr "Referencia"
+
+#. module: easy_web
+#: model:ir.model.fields,field_description:easy_web.field_res_partner_portal_contacts_partner_responsable_id
+msgid "Responsable"
+msgstr "Responsable"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_my_home_balance
+msgid "Saldo Cuenta Corriente"
+msgstr "Saldo Cuenta Corriente"
+
+#. module: easy_web
+#: code:addons/easy_web/controllers/portal.py:156
+#: code:addons/easy_web/controllers/portal.py:412
+#, python-format
+msgid "Search in All"
+msgstr "Buscar en Todos"
+
+#. module: easy_web
+#: code:addons/easy_web/controllers/portal.py:144
+#: code:addons/easy_web/controllers/portal.py:410
+#, python-format
+msgid "Search in Customer"
+msgstr "Buscar en Cliente"
+
+#. module: easy_web
+#: code:addons/easy_web/controllers/portal.py:120
+#, python-format
+msgid "Status"
+msgstr "Estado"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_my_easy_invoice_partner
+msgid "There are currently no receipts or advancement for your account."
+msgstr "Actualmente no hay recibos o adelantos para su cuenta."
+
+#. module: easy_web
+#: code:addons/easy_web/controllers/portal.py:546
+#, python-format
+msgid "This document does not exist."
+msgstr "Este documento no existe."
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_my_home_balance
+msgid "Total Balance"
+msgstr "Total Balance"
+
+#. module: easy_web
+#: model:ir.ui.view,arch_db:easy_web.portal_my_home_balance
+msgid "Totales:"
+msgstr "Totales:"
+
+#. module: easy_web
+#: model:ir.model,name:easy_web.model_res_partner_portal_contacts
+msgid "res.partner.portal_contacts"
+msgstr "res.partner.portal_contacts"
+
