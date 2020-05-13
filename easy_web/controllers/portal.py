@@ -1,78 +1,74 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import re
-
-from odoo import http, _, SUPERUSER_ID
+from odoo import http, _
 from odoo.addons.portal.controllers.portal import (
     CustomerPortal,
     pager as portal_pager,
 )
 from odoo.exceptions import AccessError, MissingError, UserError
 from odoo.http import request, content_disposition
-from odoo.tools import consteq
-from odoo.addons.account.controllers.portal import PortalAccount
+from odoo.osv.expression import OR
+from collections import OrderedDict
+from datetime import datetime
 
 
 class PortalEasy(CustomerPortal):
     def _prepare_portal_layout_values(self):
         values = super(PortalEasy, self)._prepare_portal_layout_values()
-        partner = request.env["res.users"].browse(request.uid).partner_id
+        # partner = request.env["res.users"].browse(request.uid).partner_id
+        partner = request.env.user.partner_id
+        partners = []
+
+        for contacts in partner.portal_partners_ids:
+            partners.append(contacts.partner_portal_id.id)
+
+        partners.append(partner.id)
+
         invoice_count = (
             request.env["easy.invoice"]
             .sudo()
             .search_count(
                 [
                     ("state", "in", ("open", "paid")),
-                    ("partner_id", "=", partner.id),
+                    ("partner_id", "in", partners),
                 ]
             )
         )
         easy_partner_count = (
             request.env["easy.partner.cc"]
             .sudo()
-            .search_count([("partner_id", "=", partner.id)])
+            .search_count([("partner_id", "in", partners)])
         )
         partner_balance = (
-            request.env["res.partner"]
-            .sudo()
-            .search_read([("id", "=", partner.id)], limit=1)
+            request.env["res.partner"].sudo().search([("id", "in", partners)])
         )
+        easy_amount_balance = 0
+        odoo_amount_balance = 0
+        total_easy_amount_balance = 0
+
+        for partner in partner_balance:
+            easy_amount_balance += partner.easy_amount_balance
+            odoo_amount_balance += partner.amount_balance
+            total_easy_amount_balance += partner.total_amount_balance
+
         values["easy_invoice_count"] = invoice_count
         values["easy_partner_count"] = easy_partner_count
-        values["easy_amount_balance"] = partner_balance[0][
-            "easy_amount_balance"
-        ]
-        values["odoo_amount_balance"] = partner_balance[0]["amount_balance"]
-        values["total_easy_amount_balance"] = partner_balance[0][
-            "total_amount_balance"
-        ]
-        return values
-
-    def _document_check_easy_access(self, model_name, document_id, partner):
-        document = request.env[model_name].sudo().browse([document_id])
-        document_sudo = False
-        # document_sudo = document.with_user(SUPERUSER_ID).exists()
-        if document.partner_id == partner:
-            document_sudo = True
-        if not document_sudo:
-            raise MissingError(_("This document does not exist."))
-        return document
-
-    def _invoice_get_page_view_values_easy(
-        self, invoice, access_token, **kwargs
-    ):
-        values = {
-            "page_name": "easy invoice",
-            "invoice": invoice,
-        }
-        return self._get_page_view_values(
-            invoice,
-            access_token,
-            values,
-            "my_invoices_history",
-            False,
-            **kwargs
+        values["easy_amount_balance"] = "%.2f" % easy_amount_balance
+        values["odoo_amount_balance"] = "%.2f" % odoo_amount_balance
+        values["total_easy_amount_balance"] = (
+            "%.2f" % total_easy_amount_balance
         )
+
+        portal_responsable = False
+
+        if partner.portal_responsable:
+            portal_responsable = True
+
+        values["partner_balance"] = partner_balance
+        values["portal_responsable"] = portal_responsable
+
+        return values
 
     ####################################
     # #######   EASY INVOICE   #########
@@ -85,16 +81,33 @@ class PortalEasy(CustomerPortal):
         website=True,
     )
     def portal_my_easy_invoices(
-        self, page=1, date_begin=None, date_end=None, sortby=None, **kw
+        self,
+        page=1,
+        date_begin=None,
+        date_end=None,
+        sortby=None,
+        search=None,
+        filterby=None,
+        search_in="content",
+        **kw
     ):
         values = {}
-        partner = request.env["res.users"].browse(request.uid).partner_id
+        # partner = request.env["res.users"].browse(request.uid).partner_id
+        partner = request.env.user.partner_id
+
+        partners = []
+
+        for contacts in partner.portal_partners_ids:
+            partners.append(contacts.partner_portal_id.id)
+
+        partners.append(partner.id)
+
         items_per_page = 10
         AccountInvoice = request.env["easy.invoice"]
 
         domain = [
             ("state", "in", ("open", "paid")),
-            ("partner_id", "=", partner.id),
+            ("partner_id", "in", partners),
         ]
 
         searchbar_sortings = {
@@ -106,17 +119,84 @@ class PortalEasy(CustomerPortal):
             "name": {"label": _("Reference"), "order": "name desc"},
             "state": {"label": _("Status"), "order": "state"},
         }
+
+        searchbar_filters = {
+            "all": {"label": _("All"), "domain": []},
+            "nc": {
+                "label": _("Notas de Credito"),
+                "domain": [("type", "=", "out_refund")],
+            },
+            "invoice": {
+                "label": _("Facturas"),
+                "domain": [("type", "=", "out_invoice")],
+            },
+        }
+
+        searchbar_inputs = {
+            "invoice": {
+                "input": "invoice",
+                "label": _(
+                    "<span class='nolabel'>Buscar  </span>(en Facturas)"
+                ),
+            },
+            "customer": {
+                "input": "customer",
+                "label": _("Search in Customer"),
+            },
+            "product": {
+                "input": "product",
+                "label": _(
+                    "<span class='nolabel'>Buscar con </span>Productos"
+                ),
+            },
+            "date": {
+                "input": "date",
+                "label": _("<span class='nolabel'>Buscar con </span>Fecha"),
+            },
+            "all": {"input": "all", "label": _("Search in All")},
+        }
         # default sort by order
         if not sortby:
             sortby = "date"
         order = searchbar_sortings[sortby]["order"]
 
-        # archive_groups = self._get_archive_groups('account.move', domain)
-        if date_begin and date_end:
-            domain += [
-                ("create_date", ">", date_begin),
-                ("create_date", "<=", date_end),
-            ]
+        archive_groups = self._get_archive_groups("easy.invoice", domain)
+
+        if date_begin:
+            domain += [("create_date", ">", date_begin)]
+        if date_end:
+            domain += [("create_date", "<=", date_end)]
+
+        # search
+        if search and search_in:
+            search_domain = []
+            if search_in in ("invoice", "all"):
+                search_domain = OR(
+                    [search_domain, [("name", "ilike", search)]]
+                )
+            if search_in in ("customer", "all"):
+                search_domain = OR(
+                    [search_domain, [("partner_id.name", "ilike", search)]]
+                )
+            if search_in in ("date"):
+                try:
+                    date = datetime.strptime(search, "%d/%m/%Y")
+                    date_f = datetime.strftime(date, "%Y-%m-%d")
+                except:
+                    date_f = search
+                search_domain = OR(
+                    [search_domain, [("date_invoice", ">=", date_f)]]
+                )
+            if search_in == "product":
+                search_domain = [
+                    ("invoice_line_ids.product_id.name", "ilike", search)
+                ]
+
+            domain += search_domain
+
+        if not filterby:
+            filterby = "all"
+        domain += searchbar_filters[filterby]["domain"]
 
         # count for pager
         invoice_count = AccountInvoice.sudo().search_count(domain)
@@ -127,6 +207,9 @@ class PortalEasy(CustomerPortal):
                 "date_begin": date_begin,
                 "date_end": date_end,
                 "sortby": sortby,
+                "filterby": filterby,
+                "search_in": search_in,
+                "search": search,
             },
             total=invoice_count,
             page=page,
@@ -136,22 +219,38 @@ class PortalEasy(CustomerPortal):
         invoices = AccountInvoice.sudo().search(
             domain, order=order, limit=items_per_page, offset=pager["offset"],
         )
+
         request.session["my_invoices_history"] = invoices.ids[:100]
 
         easy_invoices_total = 0
         for invoice in invoices:
-            easy_invoices_total += invoice.residual_amount
+            easy_invoices_total += invoice.amount_total
+
+        portal_responsable = False
+        if partner.portal_responsable:
+            portal_responsable = True
 
         values.update(
             {
                 "date": date_begin,
+                "date_end": date_end,
+                "date": date_begin,
                 "invoices": invoices,
+                "archive_groups": archive_groups,
+                "portal_responsable": portal_responsable,
                 "easy_invoices_total": easy_invoices_total,
                 "page_name": "easy invoice",
                 "pager": pager,
-                "default_url": "/my/invoices",
-                "searchbar_sortings": searchbar_sortings,
+                "default_url": "/my/easy_invoices",
+                "searchbar_inputs": searchbar_inputs,
+                "search_in": search_in,
+                # "searchbar_sortings": searchbar_sortings,
+                # "searchbar_groupby": searchbar_groupby,
                 "sortby": sortby,
+                "searchbar_filters": OrderedDict(
+                    sorted(searchbar_filters.items())
+                ),
+                "filterby": filterby,
             }
         )
         return request.render("easy_web.portal_my_easy_invoices", values)
@@ -171,7 +270,8 @@ class PortalEasy(CustomerPortal):
         **kw
     ):
 
-        partner = request.env["res.users"].browse(request.uid).partner_id
+        # partner = request.env["res.users"].browse(request.uid).partner_id
+        partner = request.env.user.partner_id
 
         try:
             invoice_sudo = self._document_check_easy_access(
@@ -225,7 +325,9 @@ class PortalEasy(CustomerPortal):
         self, easy_invoice_id, access_token=None, **kw
     ):
 
-        partner = request.env["res.users"].browse(request.uid).partner_id
+        # partner = request.env["res.users"].browse(request.uid).partner_id
+        partner = request.env.user.partner_id
+
         try:
             invoice_sudo = self._document_check_easy_access(
                 "easy.invoice", easy_invoice_id, partner
@@ -251,14 +353,30 @@ class PortalEasy(CustomerPortal):
         website=True,
     )
     def portal_my_easy_invoices_partner(
-        self, page=1, date_begin=None, date_end=None, sortby=None, **kw
+        self,
+        page=1,
+        date_begin=None,
+        date_end=None,
+        sortby=None,
+        search=None,
+        filterby=None,
+        search_in="content",
+        **kw
     ):
         values = {}
-        partner = request.env["res.users"].browse(request.uid).partner_id
+        # partner = request.env["res.users"].browse(request.uid).partner_id
+        partner = request.env.user.partner_id
+        partners = []
+
+        for contacts in partner.portal_partners_ids:
+            partners.append(contacts.partner_portal_id.id)
+
+        partners.append(partner.id)
+
         items_per_page = 10
         easy_invoice_partner = request.env["easy.partner.cc"]
 
-        domain = [("partner_id", "=", partner.id)]
+        domain = [("partner_id", "in", partners)]
 
         searchbar_sortings = {
             "date": {"label": _("Invoice Date"), "order": "date desc"},
@@ -267,11 +385,54 @@ class PortalEasy(CustomerPortal):
                 "order": "description desc",
             },
         }
+
+        searchbar_filters = {
+            "all": {"label": _("All"), "domain": []},
+            "adv": {
+                "label": _("Adelantos"),
+                "domain": [("amount_advancement", ">", "0")],
+            },
+            "recp": {
+                "label": _("Recibos"),
+                "domain": [("amount_anticipe", ">", 0)],
+            },
+        }
+
+        searchbar_inputs = {
+            "description": {
+                "input": "description",
+                "label": _(
+                    "Buscar <span class='nolabel'> (en Referencia) </span>"
+                ),
+            },
+            "customer": {
+                "input": "customer",
+                "label": _("Search in Customer"),
+            },
+            "all": {"input": "all", "label": _("Search in All")},
+        }
         # default sort by order
         if not sortby:
             sortby = "date"
         order = searchbar_sortings[sortby]["order"]
+        # SEARCH
 
+        # search
+        if search and search_in:
+            search_domain = []
+            if search_in in ("description", "all"):
+                search_domain = OR(
+                    [search_domain, [("description", "ilike", search)]]
+                )
+            if search_in in ("customer", "all"):
+                search_domain = OR(
+                    [search_domain, [("partner_id.name", "ilike", search)]]
+                )
+            domain += search_domain
+
+        if not filterby:
+            filterby = "all"
+        domain += searchbar_filters[filterby]["domain"]
         # archive_groups = self._get_archive_groups('account.move', domain)
         if date_begin and date_end:
             domain += [
@@ -288,6 +449,9 @@ class PortalEasy(CustomerPortal):
                 "date_begin": date_begin,
                 "date_end": date_end,
                 "sortby": sortby,
+                "filterby": filterby,
+                "search_in": search_in,
+                "search": search,
             },
             total=invoice_count,
             page=page,
@@ -306,10 +470,19 @@ class PortalEasy(CustomerPortal):
 
         request.session["my_invoices_history"] = receipts.ids[:100]
 
+        portal_responsable = False
+
+        if partner.portal_responsable:
+            portal_responsable = True
+
         values.update(
             {
                 "date": date_begin,
                 "receipts": receipts,
+                "searchbar_inputs": searchbar_inputs,
+                "searchbar_filters": searchbar_filters,
+                "filterby": filterby,
+                "portal_responsable": portal_responsable,
                 "receipt_total": receipt_total,
                 "receipt_advancement": receipt_advancement,
                 "page_name": "easy partner",
@@ -324,8 +497,9 @@ class PortalEasy(CustomerPortal):
         )
 
     ####################################
-    # #######   INVOICE   #########
+    # #######   FUNCTIONS   #########
     ####################################
+
     def _show_report(self, model, report_type, report_ref, download=False):
         if report_type not in ("html", "pdf", "text"):
             raise UserError(_("Invalid report type: %s") % report_type)
@@ -356,3 +530,18 @@ class PortalEasy(CustomerPortal):
                 ("Content-Disposition", content_disposition(filename))
             )
         return request.make_response(report, headers=reporthttpheaders)
+
+    def _document_check_easy_access(self, model_name, document_id, partner):
+        document = request.env[model_name].sudo().browse([document_id])
+        document_sudo = False
+        partners = []
+
+        for contacts in partner.portal_partners_ids:
+            partners.append(contacts.partner_portal_id.id)
+        partners.append(partner.id)
+
+        if document.partner_id.id in partners:
+            document_sudo = True
+        if not document_sudo:
+            raise MissingError(_("This document does not exist."))
+        return document

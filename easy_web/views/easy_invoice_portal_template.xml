@@ -11,7 +11,12 @@
             </xpath>
         </template>
 
-        <template id="easy_web.portal_easy_invoice" name="Portal My Home : easy invoice entries" inherit_id="portal.portal_my_home" priority="21">
+        <template id="easy_web.portal_easy_invoice" name="Portal My Home : easy invoice entries" inherit_id="portal.portal_my_home" priority="31">
+            <xpath expr="//ul[hasclass('o_portal_docs')]" position="replace">
+                <ul class="o_portal_docs list-group">
+                </ul>
+            </xpath>
+
             <xpath expr="//ul[hasclass('o_portal_docs')]" position="inside">
                 <li class="list-group-item">
                     <span class="badge" t-esc="easy_invoice_count"/>
@@ -26,13 +31,44 @@
                 <h3>Facturas Rápidas
                     <t t-call="portal.portal_searchbar">
                     </t>
+                    <!-- <div class="pull-right o_portal_search_panel">
+                        <div class="input-group">
+
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    <span id="label_dateB">F. Fin </span>
+                                    <span class="fa fa-calendar"></span>
+                                </button>
+                            </div>
+                            <input type="date" name="date_end" t-att-value='date_end' class="form-control o_website_form_input o_website_form_date"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default search-submit" type="button">
+                                    <span class="fa fa-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="pull-right o_portal_search_panel">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    <span id="label_dateB">F. Inc </span>
+                                    <span class="fa fa-calendar"></span>
+                                </button>
+                            </div>
+                            <input type="date" name="date_begin" t-att-value='date_begin' class="form-control o_website_form_input o_website_form_date"/>
+                        </div>
+                    </div> -->
                 </h3>
                 <t t-if="not invoices">
-                    <p>Actualmente no hay facturas y pagos para su cuenta.</p>
+                    <p>Actualmente no hay facturas y pagos para su cuenta, recuerde que para buscar por fecha el formato es <span style="font-weight:bold">"dd/mm/yyyy"</span></p>
                 </t>
                 <t t-if="invoices" t-call="easy_web.portal_table">
                     <thead>
                         <tr class="active">
+                            <t t-if="portal_responsable">
+                                <th>Cliente</th>
+                            </t>
                             <th>Factura #</th>
                             <th>Fecha</th>
                             <th class='d-none d-md-table-cell'>Fecha de Vencimiento</th>
@@ -43,6 +79,11 @@
                     <tbody>
                         <t t-foreach="invoices" t-as="invoice">
                             <tr>
+                                <t t-if="portal_responsable">
+                                    <td>
+                                        <span t-field="invoice.partner_id.name"/>
+                                    </td>
+                                </t>
                                 <td>
                                     <a t-attf-href="/my/easy_invoices/{{(invoice.id)}}" t-att-title="invoice.name">
                                         <t t-esc="invoice.name" t-if="invoice.name"/>
@@ -81,9 +122,16 @@
                             </tr>
                         </t>
                         <tr>
-                            <td colspan="4" style="text-align: right;">
-                                <span style="font-weight: bold;">Total:</span>
-                            </td>
+                            <t t-if="portal_responsable">
+                                <td colspan="5" style="text-align: right;">
+                                    <span style="font-weight: bold;">Total:</span>
+                                </td>
+                            </t>
+                            <t t-else="">
+                                <td colspan="4" style="text-align: right;">
+                                    <span style="font-weight: bold;">Total:</span>
+                                </td>
+                            </t>
                             <td>
                                 $                                <span t-esc="easy_invoices_total"/>
                             </td>
@@ -183,10 +231,9 @@
                             <tbody class="o_portal_report_tbody">
                                 <t t-foreach="invoice.invoice_line_ids" t-as="line">
                                     <tr>
-                                        <td>
-                                            <span t-if="line.name" t-field="line.name"/>
-                                            <span t-else="" t-field="line.product_id.name"/>
-                                        </td>
+                                        <td>[<span t-field="line.product_id.default_code"/>] <span t-field="line.product_id.name"/></td>
+                                            <!-- <span t-if="line.name" t-field="line.name"/>
+                                            <span t-else="" t-field="line.product_id.name"/> -->
                                         <td>
                                             <span t-field="line.analytic_account_id.name"/>
                                         </td>
@@ -230,7 +277,7 @@
 
         <!-- INVOICES -->
 
-        <template id="easy_web.portal_invoice_total" name="Portal: Total invoices portal" inherit_id="account.portal_my_invoices" priority="1">
+        <!-- <template id="easy_web.portal_invoice_total" name="Portal: Total invoices portal" inherit_id="account.portal_my_invoices" priority="1">
             <xpath expr="//table[hasclass('o_portal_my_doc_table')]" position="inside">
                 <tr>
                     <td colspan="4" style="text-align: right;">
@@ -241,7 +288,7 @@
                     </td>
                 </tr>
             </xpath>
-        </template>
+        </template> -->
 
     </data>
 </odoo>

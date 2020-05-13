@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="res_partner_portal" model="ir.ui.view">
+            <field name="model">res.partner</field>
+            <field name="name">Partner Portal Responsable</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field eval="100" name="priority"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='email']" position="after">
+                    <field name="portal_responsable"/>
+                </xpath>
+
+                <xpath expr="//page[@name='sales_purchases']" position="after">
+                    <page string="Portal" name="portal_responsable" attrs="{'invisible': [('portal_responsable', '=', False)]}">
+                        <field name="portal_partners_ids" nolabel="1" widget="one2many_list" mode="tree">
+                            <tree string="Invoice Lines" editable="bottom">
+                                <field name="partner_portal_id" options="{'no_create': True, 'no_create_edit':True}"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
+
+        

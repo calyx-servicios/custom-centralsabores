@@ -11,6 +11,7 @@
     "category": "Customs",
     "version": "11.0.1.0.0",
     "depends": [
+        "base",
         "easy_invoice",
         "easy_invoice_partner_cc",
         "portal",
@@ -18,9 +19,9 @@
         "account",
     ],
     "data": [
-        # 'views/sale_views.xml',
         "views/easy_invoice_portal_template.xml",
         "views/easy_partner_portal_template.xml",
+        "views/res_partner_view.xml",
         "security/ir.model.access.csv",
     ],
 }
