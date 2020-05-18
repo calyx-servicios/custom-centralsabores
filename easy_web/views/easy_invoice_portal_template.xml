@@ -61,7 +61,8 @@
                     </div> -->
                 </h3>
                 <t t-if="not invoices">
-                    <p>Actualmente no hay facturas y pagos para su cuenta, recuerde que para buscar por fecha el formato es <span style="font-weight:bold">"dd/mm/yyyy"</span></p>
+                    <p>Actualmente no hay facturas y pagos para su cuenta, recuerde que para buscar por fecha el formato es <span style="font-weight:bold">"dd/mm/yyyy"</span>
+                    </p>
                 </t>
                 <t t-if="invoices" t-call="easy_web.portal_table">
                     <thead>
@@ -133,7 +134,7 @@
                                 </td>
                             </t>
                             <td>
-                                $                                <span t-esc="easy_invoices_total"/>
+                                <span t-esc="easy_invoices_total" t-options='{"widget": "monetary", "display_currency": currency}'/>
                             </td>
                         </tr>
                     </tbody>
@@ -231,8 +232,10 @@
                             <tbody class="o_portal_report_tbody">
                                 <t t-foreach="invoice.invoice_line_ids" t-as="line">
                                     <tr>
-                                        <td>[<span t-field="line.product_id.default_code"/>] <span t-field="line.product_id.name"/></td>
-                                            <!-- <span t-if="line.name" t-field="line.name"/>
+                                        <td>[                                            <span t-field="line.product_id.default_code"/>
+]                                            <span t-field="line.product_id.name"/>
+                                        </td>
+                                        <!-- <span t-if="line.name" t-field="line.name"/>
                                             <span t-else="" t-field="line.product_id.name"/> -->
                                         <td>
                                             <span t-field="line.analytic_account_id.name"/>

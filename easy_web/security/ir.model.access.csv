@@ -4,3 +4,4 @@ access_easy_invoice_line_portal,easy_web.easy.invoice.line.portal,easy_invoice.m
 access_easy_payment_portal,easy_web.easy.payemnt.portal,easy_invoice.model_easy_payment,base.group_portal,1,0,0,0
 access_easy_partner_portal,easy_web.easy.partner.portal,easy_invoice_partner_cc.model_easy_partner_cc,base.group_portal,1,0,0,0
 access_easy_portal_contacts,easy_web.partner.portal.contacts,easy_web.model_res_partner_portal_contacts,base.group_portal,1,0,0,0
+access_easy_web_res_partner,easy_web.res.partner.portal.contacts,easy_web.model_res_partner_portal_contacts,,1,1,1,1
