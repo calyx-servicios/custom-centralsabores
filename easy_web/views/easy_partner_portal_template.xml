@@ -26,13 +26,13 @@
                                     </td>
                                 </t>
                                 <td class="text-right">
-                                    <span t-esc="partner.easy_amount_balance"/>
+                                    <span t-esc="partner.easy_amount_balance" t-options='{"widget": "monetary", "display_currency": currency}'/>
                                 </td>
                                 <td class="text-right">
-                                    <span t-esc="partner.amount_balance"/>
+                                    <span t-esc="partner.amount_balance" t-options='{"widget": "monetary", "display_currency": currency}'/>
                                 </td>
                                 <td class="text-right">
-                                    <span t-esc="partner.total_amount_balance"/>
+                                    <span t-esc="partner.total_amount_balance" t-options='{"widget": "monetary", "display_currency": currency}'/>
                                 </td>
                             </tr>
                         </t>
@@ -40,13 +40,13 @@
                             <tr>
                                 <td class="text-right" style="font-weight:bold">Totales:</td>
                                 <td class="text-right">
-                                    $                                    <span t-esc="easy_amount_balance"/>
+                                    <span t-esc="easy_amount_balance" t-options='{"widget": "monetary", "display_currency": currency}'/>
                                 </td>
                                 <td class="text-right">
-                                    $                                    <span t-esc="odoo_amount_balance"/>
+                                    <span t-esc="odoo_amount_balance" t-options='{"widget": "monetary", "display_currency": currency}'/>
                                 </td>
                                 <td class="text-right">
-                                    $                                    <span t-esc="total_easy_amount_balance"/>
+                                    <span t-esc="total_easy_amount_balance" t-options='{"widget": "monetary", "display_currency": currency}'/>
                                 </td>
                             </tr>
                         </t>
@@ -118,10 +118,10 @@
                                     <span t-field="receipt.user_id.name"/>
                                 </td>
                                 <td class="text-right">
-                                    $                                    <span t-esc="receipt.amount_anticipe"/>
+                                    <span t-esc="receipt.amount_anticipe" t-options='{"widget": "monetary", "display_currency": currency}'/>
                                 </td>
                                 <td class="text-right">
-                                    $                                    <span t-esc="receipt.amount_advancement"/>
+                                    <span t-esc="receipt.amount_advancement" t-options='{"widget": "monetary", "display_currency": currency}'/>
                                 </td>
                             </tr>
                         </t>
@@ -137,10 +137,10 @@
                                 </td>
                             </t>
                             <td>
-                                $                                <span t-esc="receipt_total"/>
+                                <span t-esc="receipt_total" t-options='{"widget": "monetary", "display_currency": currency}'/>
                             </td>
                             <td>
-                                $                                <span t-esc="receipt_advancement"/>
+                                <span t-esc="receipt_advancement" t-options='{"widget": "monetary", "display_currency": currency}'/>
                             </td>
                         </tr>
                     </tbody>

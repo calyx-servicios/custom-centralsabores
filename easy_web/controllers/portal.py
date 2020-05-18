@@ -18,6 +18,7 @@ class PortalEasy(CustomerPortal):
         values = super(PortalEasy, self)._prepare_portal_layout_values()
         # partner = request.env["res.users"].browse(request.uid).partner_id
         partner = request.env.user.partner_id
+        currency = request.env.user.company_id.currency_id
         partners = []
 
         for contacts in partner.portal_partners_ids:
@@ -54,11 +55,9 @@ class PortalEasy(CustomerPortal):
 
         values["easy_invoice_count"] = invoice_count
         values["easy_partner_count"] = easy_partner_count
-        values["easy_amount_balance"] = "%.2f" % easy_amount_balance
-        values["odoo_amount_balance"] = "%.2f" % odoo_amount_balance
-        values["total_easy_amount_balance"] = (
-            "%.2f" % total_easy_amount_balance
-        )
+        values["easy_amount_balance"] = easy_amount_balance
+        values["odoo_amount_balance"] = odoo_amount_balance
+        values["total_easy_amount_balance"] = total_easy_amount_balance
 
         portal_responsable = False
 
@@ -67,6 +66,7 @@ class PortalEasy(CustomerPortal):
 
         values["partner_balance"] = partner_balance
         values["portal_responsable"] = portal_responsable
+        values["currency"] = currency
 
         return values
 
@@ -221,6 +221,7 @@ class PortalEasy(CustomerPortal):
         )
 
         request.session["my_invoices_history"] = invoices.ids[:100]
+        currency = request.env.user.company_id.currency_id
 
         easy_invoices_total = 0
         for invoice in invoices:
@@ -238,12 +239,13 @@ class PortalEasy(CustomerPortal):
                 "invoices": invoices,
                 "archive_groups": archive_groups,
                 "portal_responsable": portal_responsable,
-                "easy_invoices_total": "%.2f" % easy_invoices_total,
+                "easy_invoices_total": easy_invoices_total,
                 "page_name": "easy invoice",
                 "pager": pager,
                 "default_url": "/my/easy_invoices",
                 "searchbar_inputs": searchbar_inputs,
                 "search_in": search_in,
+                "currency": currency,
                 # "searchbar_sortings": searchbar_sortings,
                 # "searchbar_groupby": searchbar_groupby,
                 "sortby": sortby,
@@ -366,6 +368,7 @@ class PortalEasy(CustomerPortal):
         values = {}
         # partner = request.env["res.users"].browse(request.uid).partner_id
         partner = request.env.user.partner_id
+        currency = request.env.user.company_id.currency_id
         partners = []
 
         for contacts in partner.portal_partners_ids:
@@ -483,13 +486,14 @@ class PortalEasy(CustomerPortal):
                 "searchbar_filters": searchbar_filters,
                 "filterby": filterby,
                 "portal_responsable": portal_responsable,
-                "receipt_total": "%.2f" % receipt_total,
-                "receipt_advancement": "%.2f" % receipt_advancement,
+                "receipt_total": receipt_total,
+                "receipt_advancement": receipt_advancement,
                 "page_name": "easy partner",
                 "pager": pager,
                 "default_url": "/my/easy_partner",
                 "searchbar_sortings": searchbar_sortings,
                 "sortby": sortby,
+                "currency": currency,
             }
         )
         return request.render(
