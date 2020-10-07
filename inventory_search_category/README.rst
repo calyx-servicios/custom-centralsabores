@@ -1,6 +1,6 @@
-==============================
-Inventory search for category
-==============================
+========================================
+Inventory search for category and period
+========================================
 
 .. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
    !! This file is intended to be in every module    !!
@@ -22,7 +22,8 @@ Inventory search for category
 |badge1| |badge2| |badge3|
 
 
-This module allows you to perform searches by internal category in the stock movement lines by default.
+This module allows you to perform internal category searches in the stock movement lines and also by month and year period. 
+It is also configured to filter by default in the search view the stock movement lines that are related to "MATERIAS PRIMAS"
 
 **Table of contents**
 

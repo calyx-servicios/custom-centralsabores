@@ -1,24 +1,20 @@
 <odoo>
     <record id="stock.view_move_search_category" model="ir.ui.view">
         <field name="name">stock.move.line.search.category</field>
-        <field name="model">stock.move</field>
-        <field name="inherit_id" ref="stock.view_move_search"/>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.stock_move_line_view_search"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='origin']" position="before">
+            <xpath expr="//field[@name='picking_id']" position="before">
+                <field name="period"/>
                 <field name="product_category_name"/>
-                <filter string="Materias Primas" name="category" domain="[('product_category_name','=','MATERIAS PRIMAS')]" />
+                <filter string="Materias Primas" name="category" 
+                    domain="[('product_category_name','=','MATERIAS PRIMAS'),('product_category_name','!=','FACTURACION')]"
+                />
             </xpath>
         </field>
     </record>
 
-    <record id="stock_move_action_filter" model="ir.actions.act_window">
-        <field name="name">Stock Moves Filter</field>
-        <field name="res_model">stock.move</field>
-        <field name="inherit_id" ref="stock.stock_move_action"/>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='context']" position="replace">
-                <field name="context">{'search_default_category':1}</field>
-            </xpath>
-        </field>    
+    <record id="stock.stock_move_line_action" model="ir.actions.act_window">
+        <field name="context">{'search_default_category': 1,'search_default_done': 1}</field>
     </record>
 </odoo>
