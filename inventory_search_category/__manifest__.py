@@ -2,11 +2,11 @@
 {
     'name': 'Inventory search for category',
     'summary': """
-        This module allows you to perform searches by internal 
-        category in the stock movement lines by default.""",
+        This module allows you to perform internal category searches in the 
+        stock movement lines and also by month and year period.""",
 
     'author': 'Calyx Servicios S.A., Odoo Community Association (OCA)',
-    'maintainers': ['<Github/Gitlab Username/s>'],
+    'maintainers': ['miltonguzmanf@gmail.com'],
 
     'website': 'http://odoo.calyx-cloud.com.ar/',
     'license': 'AGPL-3',
