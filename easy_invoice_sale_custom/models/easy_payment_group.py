@@ -85,6 +85,7 @@ class EasyPaymentGroup(models.Model):
                 if rec.amount_money < 0.0:
                     raise ValidationError(_('You cant not Prepare a Group with Amount Money in 0 or Negative.-'))
                 rec._control_amount_partner_cc_ajust()
+
                 rec.amount_difference = rec.amount_total_debt - rec.amount_total_rectificative - rec.partner_amount - rec.partner_amount_anticipe
             else:
                 var_return  = super(EasyPaymentGroup, self).control_amount()
