@@ -6,3 +6,4 @@ from . import sale_order
 from . import easy_invoice
 # from . import easy_invoice_line
 from . import easy_payment_group
+from . import account_invoice
