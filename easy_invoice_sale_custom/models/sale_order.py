@@ -46,10 +46,8 @@ class SaleOrder(models.Model):
                 'company_id': line_obj.company_id.id,
                 'unit_detail': line_obj.unit_detail,
             }
+            
             invoice_line_created = self.env['easy.invoice.line'].create(vals)
-            if line_obj.order_line_cost_center_ids:
-                invoice_line_created.invoice_line_cost_center_ids = line_obj.order_line_cost_center_ids
-
 
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
