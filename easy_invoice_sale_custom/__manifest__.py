@@ -10,7 +10,7 @@
     'author': "Calyx",
     'website': "http://www.calyxservicios.com.ar",
     'category': 'Customs',
-    'version': '11.0.1.0.0',
+    'version': '11.0.2.0.0',
     'depends' : [
         'easy_invoice',
         'easy_invoice_sale',
@@ -29,5 +29,7 @@
         #'views/easy_invoice_view.xml',
         'views/res_partner_view.xml',
         'views/easy_payment_group_view.xml',
+        'views/account_invoice_view.xml',
+        'views/easy_invoice_view.xml',
     ],
 }

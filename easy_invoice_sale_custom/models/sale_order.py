@@ -31,3 +31,17 @@ class SaleOrder(models.Model):
         if 'context' in invoice_tuple and 'invoice_obj' in invoice_tuple['context']:
             invoice_tuple['context']['invoice_obj'].confirm()
         return self.env['ir.actions.report']._get_report_from_name('easy_invoice.report_easy_invoice').report_action(invoice_tuple['context']['invoice_obj'])
+
+
+class SaleOrderLine(models.Model):
+    _inherit = "sale.order.line"
+
+    unit_detail = fields.Float('Detalle Unidad', digits=(16,2))
+    
+    def _prepare_line_easy_invoice(self, invoice_created):
+        """We add the unit_detail field to the dictionary of values ​​
+           so that it loads it in the easy invoice """
+        res = super(SaleOrderLine, self)._prepare_line_easy_invoice(invoice_created)
+        res['unit_detail'] = self.unit_detail
+        
+        return res

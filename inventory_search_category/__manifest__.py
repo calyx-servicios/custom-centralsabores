@@ -2,7 +2,7 @@
 {
     'name': 'Inventory search for category',
     'summary': """
-        This module allows you to perform internal category searches in the 
+        This module allows you to perform internal category searches in the
         stock movement lines and also by month and year period.""",
 
     'author': 'Calyx Servicios S.A., Odoo Community Association (OCA)',
@@ -23,7 +23,7 @@
     'installable': True,
 
     # any module necessary for this one to work correctly
-    'depends': ['base','stock'],
+    'depends': ['stock'],
 
     'data': [
         'views/inventory_custom_search.xml',

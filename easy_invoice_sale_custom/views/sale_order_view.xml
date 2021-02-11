@@ -36,6 +36,10 @@
                 <attribute name="readonly">context.get('uid', False) not in [1]</attribute>
             </xpath>
 
+            <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']"  position="after">
+                <field name="unit_detail"/>
+            </xpath>
+
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom']"  position="attributes">
                 <attribute name="readonly">context.get('uid', False) not in [1]</attribute>
             </xpath>
