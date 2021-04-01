@@ -30,20 +30,17 @@ class CustomerPortal(CustomerPortal):
         HelpdesTicket = request.env["helpdesk.ticket"]
         partner = request.env.user.partner_id
 
-        team_ids = []
-        ticket_team = (
-            request.env["helpdesk.ticket.team"]
-            .sudo()
-            .search([("user_ids.partner_id", "in", partner.ids)])
-        )
+        partners = []
 
-        for record in ticket_team:
-            team_ids.append(record.id)
+        for contacts in partner.portal_partners_ids:
+            partners.append(contacts.partner_portal_id.id)
+
+        partners.append(partner.id)
 
         domain = [
             "|",
             ("partner_id", "child_of", partner.id),
-            ("team_id", "in", team_ids),
+            ("partner_id", "in", partners),
         ]
 
         searchbar_sortings = {

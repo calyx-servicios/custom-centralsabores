@@ -72,8 +72,8 @@
                     <span class="badge" t-esc="easy_partner_count"/>
                     <a href="/my/easy_partner">Recibos de Cliente/Adelantos de Proveedor</a>
                 </li>
-                <li t-if="ticket_count" class="list-group-item" groups="easy_web.easy_custom_portal_ticket">
-                    <span class="badge" t-esc="ticket_count"/>
+                <li t-if="ticket_count_all" class="list-group-item" groups="easy_web.easy_custom_portal_ticket">
+                    <span class="badge" t-esc="ticket_count_all"/>
                     <a href="/my/tickets">Tickets</a>
                 </li>
                 <form method="POST" t-attf-action="/new/ticket" groups="easy_web.easy_custom_portal_ticket">

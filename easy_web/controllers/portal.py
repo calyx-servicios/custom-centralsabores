@@ -69,29 +69,19 @@ class PortalEasy(CustomerPortal):
         values["portal_responsable"] = portal_responsable
         values["currency"] = currency
 
-        team_ids = []
-        ticket_team = (
-            request.env["helpdesk.ticket.team"]
-            .sudo()
-            .search([("user_ids.partner_id", "in", partner.ids)])
-        )
-
-        for record in ticket_team:
-            team_ids.append(record.id)
-
-        ticket_count = (
+        ticket_count_all = (
             request.env["helpdesk.ticket"]
             .sudo()
             .search_count(
                 [
                     "|",
                     ("partner_id", "child_of", partner.id),
-                    ("team_id", "in", team_ids),
+                    ("partner_id", "in", partners),
                 ]
             )
         )
 
-        values["ticket_count"] = ticket_count
+        values["ticket_count_all"] = ticket_count_all
 
         return values
 
