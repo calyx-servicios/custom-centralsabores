@@ -27,6 +27,7 @@
         "views/easy_invoice_portal_template.xml",
         "views/easy_partner_portal_template.xml",
         "views/res_partner_view.xml",
+        "views/tickets_template.xml",
         "security/ir.model.access.csv",
         "security/security.xml",
     ],
