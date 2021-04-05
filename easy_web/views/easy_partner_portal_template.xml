@@ -5,54 +5,55 @@
         <template id="easy_web.portal_my_home_balance" name="Portal layout : menu entries" inherit_id="portal.portal_my_home" priority="1">
             <xpath expr="//div[hasclass('o_portal_my_home')]" position="inside">
                 <div class="oe_structure"/>
-                <h3 class="page-header">Saldo Cuenta Corriente</h3>
-                <t t-call="easy_web.portal_table">
-                    <thead>
-                        <tr class="active">
-                            <t t-if="portal_responsable">
-                                <th class="text-right">Cliente</th>
-                            </t>
-                            <th class="text-right">Balance</th>
-                            <th class="text-right">Odoo Balance</th>
-                            <th class="text-right">Total Balance</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <t t-foreach="partner_balance" t-as="partner">
-                            <tr>
+                <div groups="easy_web.easy_custom_portal_responsible">
+                    <h3 class="page-header">Saldo Cuenta Corriente</h3>
+                    <t t-call="easy_web.portal_table">
+                        <thead>
+                            <tr class="active">
                                 <t t-if="portal_responsable">
-                                    <td class="text-right">
-                                        <span t-esc="partner.name"/>
-                                    </td>
+                                    <th class="text-right">Cliente</th>
                                 </t>
-                                <td class="text-right">
-                                    <span t-esc="partner.easy_amount_balance" t-options='{"widget": "monetary", "display_currency": currency}'/>
-                                </td>
-                                <td class="text-right">
-                                    <span t-esc="partner.amount_balance" t-options='{"widget": "monetary", "display_currency": currency}'/>
-                                </td>
-                                <td class="text-right">
-                                    <span t-esc="partner.total_amount_balance" t-options='{"widget": "monetary", "display_currency": currency}'/>
-                                </td>
+                                <th class="text-right">Balance</th>
+                                <th class="text-right">Odoo Balance</th>
+                                <th class="text-right">Total Balance</th>
                             </tr>
-                        </t>
-                        <t t-if="portal_responsable">
-                            <tr>
-                                <td class="text-right" style="font-weight:bold">Totales:</td>
-                                <td class="text-right">
-                                    <span t-esc="easy_amount_balance" t-options='{"widget": "monetary", "display_currency": currency}'/>
-                                </td>
-                                <td class="text-right">
-                                    <span t-esc="odoo_amount_balance" t-options='{"widget": "monetary", "display_currency": currency}'/>
-                                </td>
-                                <td class="text-right">
-                                    <span t-esc="total_easy_amount_balance" t-options='{"widget": "monetary", "display_currency": currency}'/>
-                                </td>
-                            </tr>
-                        </t>
-                    </tbody>
-                </t>
-
+                        </thead>
+                        <tbody>
+                            <t t-foreach="partner_balance" t-as="partner">
+                                <tr>
+                                    <t t-if="portal_responsable">
+                                        <td class="text-right">
+                                            <span t-esc="partner.name"/>
+                                        </td>
+                                    </t>
+                                    <td class="text-right">
+                                        <span t-esc="partner.easy_amount_balance" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-esc="partner.amount_balance" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-esc="partner.total_amount_balance" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-if="portal_responsable">
+                                <tr>
+                                    <td class="text-right" style="font-weight:bold">Totales:</td>
+                                    <td class="text-right">
+                                        <span t-esc="easy_amount_balance" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-esc="odoo_amount_balance" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-esc="total_easy_amount_balance" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </t>
+                </div>
             </xpath>
         </template>
 
@@ -65,12 +66,20 @@
             </xpath>
         </template>
 
-        <template id="easy_web.portal_easy_partner" name="Portal My Home : easy partner entries" inherit_id="portal.portal_my_home" priority="32">
+        <template id="easy_web.portal_easy_partner" name="Portal My Home : easy partner entries" inherit_id="portal.portal_my_home" priority="46">
             <xpath expr="//ul[hasclass('o_portal_docs')]" position="inside">
-                <li class="list-group-item">
+                <li class="list-group-item" groups="easy_web.easy_custom_portal_responsible">
                     <span class="badge" t-esc="easy_partner_count"/>
                     <a href="/my/easy_partner">Recibos de Cliente/Adelantos de Proveedor</a>
                 </li>
+                <li t-if="ticket_count_all" class="list-group-item" groups="easy_web.easy_custom_portal_ticket">
+                    <span class="badge" t-esc="ticket_count_all"/>
+                    <a href="/my/c_tickets">Tickets</a>
+                </li>
+                <form method="POST" t-attf-action="/new/ticket" groups="easy_web.easy_custom_portal_ticket">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <button name="create_new_ticket" type="action" class="btn btn-primary" groups="base.group_portal" style="float: right; margin-right: 0px; margin-top:5px;">New Ticket</button>
+                </form>
             </xpath>
         </template>
 

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <template id="portal_my_tickets_custom" name="My tickets">
+    <t t-call="portal.portal_layout">
+      <form method="POST" t-attf-action="/new/ticket">
+        <h3>Tickets
+          <t t-call="portal.portal_searchbar"/>
+          <button name="create_new_ticket" type="action" class="btn btn-primary" groups="base.group_portal" style="float: right; margin-right: 5px;">New Ticket</button>
+        </h3>
+        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+      </form>
+      <t t-if="not tickets">
+        <p>No existen tickets para esta cuenta.</p>
+      </t>
+      <div t-if="tickets" class="panel panel-default">
+        <div class="table-responsive">
+          <table class="table table-hover o_portal_my_doc_table">
+            <thead>
+              <tr class="active">
+                <th>Empresa</th>
+                <th>Nombre</th>
+                <th>Categoria</th>
+                <th>Estado</th>
+                <th>Fecha de creación</th>
+                <th>Ultima actualización</th>
+                <th>Fecha de cierre</th>
+              </tr>
+            </thead>
+            <t t-foreach="tickets" t-as="ticket">
+              <tr>
+                <td>
+                  <t t-esc="ticket.partner_id.name"/>
+                </td>
+                <td>
+                  <a t-attf-href="/my/ticket/#{ticket.id}">
+                    <t t-esc="ticket.name"/>
+                  </a>
+                </td>
+                <td>
+                  <t t-esc="ticket.category_id.name"/>
+                </td>
+                <td>
+                  <t t-esc="ticket.stage_id.name"/>
+                </td>
+                <td>
+                  <span t-field="ticket.create_date"/>
+                </td>
+                <td>
+                  <span t-field="ticket.last_stage_update"/>
+                </td>
+                <td>
+                  <span t-field="ticket.closed_date" />
+                </td>
+              </tr>
+            </t>
+          </table>
+        </div>
+        <div t-if="pager" class="o_portal_pager text-center">
+          <t t-call="portal.pager"/>
+        </div>
+      </div>
+    </t>
+  </template>
+
+</odoo>

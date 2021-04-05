@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="easy_custom_portal_web" model="ir.module.category">
+            <field name="name">Easy Portal Web</field>
+            <field name="sequence">1</field>
+            <field name="description">Custom Roles for Client Portal</field>
+        </record>
+
+        <record id="easy_custom_portal_ticket" model="res.groups">
+            <field name="name">Tickets User</field>
+            <field name="category_id" ref="easy_custom_portal_web"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+        <record id="easy_custom_portal_invoices" model="res.groups">
+            <field name="name">Invoice - Tickets User</field>
+            <field name="category_id" ref="easy_custom_portal_web"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+            <field name="implied_ids" eval="[(4, ref('easy_custom_portal_ticket'))]"/>
+        </record>
+
+        <record id="easy_custom_portal_responsible" model="res.groups">
+            <field name="name">Responsible User</field>
+            <field name="category_id" ref="easy_custom_portal_web"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+            <field name="implied_ids" eval="[(4, ref('easy_custom_portal_invoices'))]"/>
+        </record>
+
+    </data>
+</odoo>

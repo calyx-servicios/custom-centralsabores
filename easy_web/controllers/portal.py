@@ -16,7 +16,6 @@ from datetime import datetime
 class PortalEasy(CustomerPortal):
     def _prepare_portal_layout_values(self):
         values = super(PortalEasy, self)._prepare_portal_layout_values()
-        # partner = request.env["res.users"].browse(request.uid).partner_id
         partner = request.env.user.partner_id
         currency = request.env.user.company_id.currency_id
         partners = []
@@ -42,7 +41,9 @@ class PortalEasy(CustomerPortal):
             .search_count([("partner_id", "in", partners)])
         )
         partner_balance = (
-            request.env["res.partner"].sudo().search([("id", "in", partners)])
+            request.env["res.partner"]
+            .sudo()
+            .search([("id", "in", partners)])
         )
         easy_amount_balance = 0
         odoo_amount_balance = 0
@@ -67,6 +68,20 @@ class PortalEasy(CustomerPortal):
         values["partner_balance"] = partner_balance
         values["portal_responsable"] = portal_responsable
         values["currency"] = currency
+
+        ticket_count_all = (
+            request.env["helpdesk.ticket"]
+            .sudo()
+            .search_count(
+                [
+                    "|",
+                    ("partner_id", "child_of", partner.id),
+                    ("partner_id", "in", partners),
+                ]
+            )
+        )
+
+        values["ticket_count_all"] = ticket_count_all
 
         return values
 
@@ -111,7 +126,10 @@ class PortalEasy(CustomerPortal):
         ]
 
         searchbar_sortings = {
-            "date": {"label": _("Invoice Date"), "order": "date_invoice desc"},
+            "date": {
+                "label": _("Invoice Date"),
+                "order": "date_invoice desc",
+            },
             "duedate": {
                 "label": _("Due Date"),
                 "order": "date_expiration desc",
@@ -151,7 +169,9 @@ class PortalEasy(CustomerPortal):
             },
             "date": {
                 "input": "date",
-                "label": _("<span class='nolabel'>Buscar con </span>Fecha"),
+                "label": _(
+                    "<span class='nolabel'>Buscar con </span>Fecha"
+                ),
             },
             "all": {"input": "all", "label": _("Search in All")},
         }
@@ -160,7 +180,9 @@ class PortalEasy(CustomerPortal):
             sortby = "date"
         order = searchbar_sortings[sortby]["order"]
 
-        archive_groups = self._get_archive_groups("easy.invoice", domain)
+        archive_groups = self._get_archive_groups(
+            "easy.invoice", domain
+        )
 
         if date_begin:
             domain += [("create_date", ">", date_begin)]
@@ -176,20 +198,27 @@ class PortalEasy(CustomerPortal):
                 )
             if search_in in ("customer", "all"):
                 search_domain = OR(
-                    [search_domain, [("partner_id.name", "ilike", search)]]
+                    [
+                        search_domain,
+                        [("partner_id.name", "ilike", search)],
+                    ]
                 )
             if search_in in ("date"):
                 try:
                     date = datetime.strptime(search, "%d/%m/%Y")
                     date_f = datetime.strftime(date, "%Y-%m-%d")
-                except:
+                except ValueError:
                     date_f = search
                 search_domain = OR(
                     [search_domain, [("date_invoice", ">=", date_f)]]
                 )
             if search_in == "product":
                 search_domain = [
-                    ("invoice_line_ids.product_id.name", "ilike", search)
+                    (
+                        "invoice_line_ids.product_id.name",
+                        "ilike",
+                        search,
+                    )
                 ]
 
             domain += search_domain
@@ -217,7 +246,10 @@ class PortalEasy(CustomerPortal):
         )
         # content according to pager and archive selected
         invoices = AccountInvoice.sudo().search(
-            domain, order=order, limit=items_per_page, offset=pager["offset"],
+            domain,
+            order=order,
+            limit=items_per_page,
+            offset=pager["offset"],
         )
 
         request.session["my_invoices_history"] = invoices.ids[:100]
@@ -255,7 +287,9 @@ class PortalEasy(CustomerPortal):
                 "filterby": filterby,
             }
         )
-        return request.render("easy_web.portal_my_easy_invoices", values)
+        return request.render(
+            "easy_web.portal_my_easy_invoices", values
+        )
 
     @http.route(
         ["/my/easy_invoices/<int:easy_invoice_id>"],
@@ -429,7 +463,10 @@ class PortalEasy(CustomerPortal):
                 )
             if search_in in ("customer", "all"):
                 search_domain = OR(
-                    [search_domain, [("partner_id.name", "ilike", search)]]
+                    [
+                        search_domain,
+                        [("partner_id.name", "ilike", search)],
+                    ]
                 )
             domain += search_domain
 
@@ -462,7 +499,10 @@ class PortalEasy(CustomerPortal):
         )
         # content according to pager and archive selected
         receipts = easy_invoice_partner.sudo().search(
-            domain, order=order, limit=items_per_page, offset=pager["offset"],
+            domain,
+            order=order,
+            limit=items_per_page,
+            offset=pager["offset"],
         )
         receipt_total = 0
         receipt_advancement = 0
@@ -504,13 +544,17 @@ class PortalEasy(CustomerPortal):
     # #######   FUNCTIONS   #########
     ####################################
 
-    def _show_report(self, model, report_type, report_ref, download=False):
+    def _show_report(
+        self, model, report_type, report_ref, download=False
+    ):
         if report_type not in ("html", "pdf", "text"):
             raise UserError(_("Invalid report type: %s") % report_type)
 
         report_sudo = request.env.ref(report_ref).sudo()
 
-        if not isinstance(report_sudo, type(request.env["ir.actions.report"])):
+        if not isinstance(
+            report_sudo, type(request.env["ir.actions.report"])
+        ):
             raise UserError(
                 _("%s is not the reference of a report") % report_ref
             )
@@ -522,7 +566,9 @@ class PortalEasy(CustomerPortal):
         reporthttpheaders = [
             (
                 "Content-Type",
-                "application/pdf" if report_type == "pdf" else "text/html",
+                "application/pdf"
+                if report_type == "pdf"
+                else "text/html",
             ),
             ("Content-Length", len(report)),
         ]
@@ -535,7 +581,9 @@ class PortalEasy(CustomerPortal):
             )
         return request.make_response(report, headers=reporthttpheaders)
 
-    def _document_check_easy_access(self, model_name, document_id, partner):
+    def _document_check_easy_access(
+        self, model_name, document_id, partner
+    ):
         document = request.env[model_name].sudo().browse([document_id])
         document_sudo = False
         partners = []

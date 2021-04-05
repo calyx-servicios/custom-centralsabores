@@ -11,14 +11,14 @@
             </xpath>
         </template>
 
-        <template id="easy_web.portal_easy_invoice" name="Portal My Home : easy invoice entries" inherit_id="portal.portal_my_home" priority="31">
+        <template id="easy_web.portal_easy_invoice" name="Portal My Home : easy invoice entries" inherit_id="portal.portal_my_home" priority="45">
             <xpath expr="//ul[hasclass('o_portal_docs')]" position="replace">
                 <ul class="o_portal_docs list-group">
                 </ul>
             </xpath>
 
             <xpath expr="//ul[hasclass('o_portal_docs')]" position="inside">
-                <li class="list-group-item">
+                <li class="list-group-item" groups="easy_web.easy_custom_portal_invoices">
                     <span class="badge" t-esc="easy_invoice_count"/>
                     <a href="/my/easy_invoices">Facturas Rápidas</a>
                 </li>
@@ -31,34 +31,6 @@
                 <h3>Facturas Rápidas
                     <t t-call="portal.portal_searchbar">
                     </t>
-                    <!-- <div class="pull-right o_portal_search_panel">
-                        <div class="input-group">
-
-                            <div class="input-group-btn">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                    <span id="label_dateB">F. Fin </span>
-                                    <span class="fa fa-calendar"></span>
-                                </button>
-                            </div>
-                            <input type="date" name="date_end" t-att-value='date_end' class="form-control o_website_form_input o_website_form_date"/>
-                            <span class="input-group-btn">
-                                <button class="btn btn-default search-submit" type="button">
-                                    <span class="fa fa-search"></span>
-                                </button>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="pull-right o_portal_search_panel">
-                        <div class="input-group">
-                            <div class="input-group-btn">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                    <span id="label_dateB">F. Inc </span>
-                                    <span class="fa fa-calendar"></span>
-                                </button>
-                            </div>
-                            <input type="date" name="date_begin" t-att-value='date_begin' class="form-control o_website_form_input o_website_form_date"/>
-                        </div>
-                    </div> -->
                 </h3>
                 <t t-if="not invoices">
                     <p>Actualmente no hay facturas y pagos para su cuenta, recuerde que para buscar por fecha el formato es <span style="font-weight:bold">"dd/mm/yyyy"</span>
@@ -232,11 +204,10 @@
                             <tbody class="o_portal_report_tbody">
                                 <t t-foreach="invoice.invoice_line_ids" t-as="line">
                                     <tr>
-                                        <td>[                                            <span t-field="line.product_id.default_code"/>
-]                                            <span t-field="line.product_id.name"/>
+                                        <td>
+                                            [<span t-field="line.product_id.default_code"/>]
+                                            <span t-field="line.product_id.name"/>
                                         </td>
-                                        <!-- <span t-if="line.name" t-field="line.name"/>
-                                            <span t-else="" t-field="line.product_id.name"/> -->
                                         <td>
                                             <span t-field="line.analytic_account_id.name"/>
                                         </td>
@@ -277,21 +248,5 @@
                 </div>
             </xpath>
         </template>
-
-        <!-- INVOICES -->
-
-        <!-- <template id="easy_web.portal_invoice_total" name="Portal: Total invoices portal" inherit_id="account.portal_my_invoices" priority="1">
-            <xpath expr="//table[hasclass('o_portal_my_doc_table')]" position="inside">
-                <tr>
-                    <td colspan="4" style="text-align: right;">
-                        <span style="font-weight: bold;">Total:</span>
-                    </td>
-                    <td>
-                        $                        <span t-esc="total_invoices"/>
-                    </td>
-                </tr>
-            </xpath>
-        </template> -->
-
     </data>
 </odoo>
