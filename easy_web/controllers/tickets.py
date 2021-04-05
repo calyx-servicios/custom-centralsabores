@@ -10,7 +10,7 @@ from odoo.osv.expression import OR
 
 class CustomerPortal(CustomerPortal):
     @http.route(
-        ["/my/tickets", "/my/tickets/page/<int:page>"],
+        ["/my/c_tickets", "/my/c_tickets/page/<int:page>"],
         type="http",
         auth="user",
         website=True,
@@ -139,7 +139,7 @@ class CustomerPortal(CustomerPortal):
         ticket_count = HelpdesTicket.sudo().search_count(domain)
         # pager
         pager = portal_pager(
-            url="/my/tickets",
+            url="/my/c_tickets",
             url_args={},
             total=ticket_count,
             page=page,
@@ -158,7 +158,7 @@ class CustomerPortal(CustomerPortal):
                 "tickets": tickets,
                 "page_name": "ticket",
                 "pager": pager,
-                "default_url": "/my/tickets",
+                "default_url": "/my/c_tickets",
                 "searchbar_sortings": searchbar_sortings,
                 "searchbar_inputs": searchbar_inputs,
                 "search_in": search_in,
@@ -173,7 +173,7 @@ class CustomerPortal(CustomerPortal):
         )
 
     @http.route(
-        ["/my/ticket/<int:ticket_id>"], type="http", website=True
+        ["/my/c_tickets/<int:ticket_id>"], type="http", website=True
     )
     def portal_my_ticket(self, ticket_id=None, **kw):
         ticket = request.env["helpdesk.ticket"].browse([ticket_id])
