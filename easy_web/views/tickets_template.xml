@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-  <template id="portal_my_tickets_custom" name="My tickets">
+  <template id="portal_my_tickets_custom" name="My tickets" priority="10">
     <t t-call="portal.portal_layout">
       <form method="POST" t-attf-action="/new/ticket">
         <h3>Tickets
