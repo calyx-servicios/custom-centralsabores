@@ -18,7 +18,7 @@ class CustomerPortal(CustomerPortal):
         auth="user",
         website=True,
     )
-    def portal_my_tickets(
+    def portal_my_c_tickets(
         self,
         page=1,
         date_begin=None,
@@ -142,7 +142,7 @@ class CustomerPortal(CustomerPortal):
         ticket_count = HelpdesTicket.sudo().search_count(domain)
         # pager
         pager = portal_pager(
-            url="/my/c_tickets",
+            url="/my/tickets",
             url_args={},
             total=ticket_count,
             page=page,
@@ -179,9 +179,9 @@ class CustomerPortal(CustomerPortal):
         )
 
     @http.route(
-        ["/my/c_tickets/<int:ticket_id>"], type="http", website=True
+        ["/my/c_ticket/<int:ticket_id>"], type="http", website=True
     )
-    def portal_my_ticket(self, ticket_id=None, **kw):
+    def portal_my_c_ticket(self, ticket_id=None, **kw):
         ticket = request.env["helpdesk.ticket"].browse([ticket_id])
         ticket_sudo = ticket.sudo()
         values = self._ticket_get_page_view_values(ticket_sudo, **kw)
