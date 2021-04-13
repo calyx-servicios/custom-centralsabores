@@ -74,7 +74,7 @@
                 </li>
                 <li t-if="ticket_count_all" class="list-group-item" groups="easy_web.easy_custom_portal_ticket">
                     <span class="badge" t-esc="ticket_count_all"/>
-                    <a href="/my/tickets">Tickets</a>
+                    <a href="/my/c_tickets">Tickets</a>
                 </li>
                 <form method="POST" t-attf-action="/new/ticket" groups="easy_web.easy_custom_portal_ticket">
                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>

@@ -10,12 +10,12 @@ from odoo.osv.expression import OR
 
 class CustomerPortal(CustomerPortal):
     @http.route(
-        ["/my/tickets", "/my/tickets/page/<int:page>"],
+        ["/my/c_tickets", "/my/c_tickets/page/<int:page>"],
         type="http",
         auth="user",
         website=True,
     )
-    def portal_my_tickets(
+    def portal_my_c_tickets(
         self,
         page=1,
         date_begin=None,
@@ -158,7 +158,7 @@ class CustomerPortal(CustomerPortal):
                 "tickets": tickets,
                 "page_name": "ticket",
                 "pager": pager,
-                "default_url": "/my/tickets",
+                "default_url": "/my/c_tickets",
                 "searchbar_sortings": searchbar_sortings,
                 "searchbar_inputs": searchbar_inputs,
                 "search_in": search_in,
@@ -173,9 +173,9 @@ class CustomerPortal(CustomerPortal):
         )
 
     @http.route(
-        ["/my/ticket/<int:ticket_id>"], type="http", website=True
+        ["/my/c_ticket/<int:ticket_id>"], type="http", website=True
     )
-    def portal_my_ticket(self, ticket_id=None, **kw):
+    def portal_my_c_ticket(self, ticket_id=None, **kw):
         ticket = request.env["helpdesk.ticket"].browse([ticket_id])
         ticket_sudo = ticket.sudo()
         values = self._ticket_get_page_view_values(ticket_sudo, **kw)
