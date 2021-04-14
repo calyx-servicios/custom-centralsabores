@@ -9,6 +9,13 @@ from odoo.osv.expression import OR
 
 
 class CustomerPortal(CustomerPortal):
+
+    def _message_content_field_exists(self):
+        base_search_module = request.env['ir.module.module'].sudo().search([
+            ('name', '=', 'base_search_mail_content')])
+        return (base_search_module and base_search_module.state == 'installed')
+
+
     @http.route(
         ["/my/c_tickets", "/my/c_tickets/page/<int:page>"],
         type="http",
