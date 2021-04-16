@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+import werkzeug
 from odoo import http, _
 from odoo.http import request
 from odoo.addons.portal.controllers.portal import CustomerPortal
@@ -12,6 +13,13 @@ _logger = logging.getLogger(__name__)
 
 
 class CustomerPortal(CustomerPortal):
+
+    def _message_content_field_exists(self):
+        base_search_module = request.env['ir.module.module'].sudo().search([
+            ('name', '=', 'base_search_mail_content')])
+        return (base_search_module and base_search_module.state == 'installed')
+
+
     @http.route(
         ["/my/c_tickets", "/my/c_tickets/page/<int:page>"],
         type="http",
@@ -188,3 +196,50 @@ class CustomerPortal(CustomerPortal):
         return request.render(
             "helpdesk_mgmt.portal_helpdesk_ticket_page", values
         )
+
+class HelpdeskTicketController(http.Controller):
+    
+    @http.route('/new/ticket', type="http", auth="user", website=True)
+    def create_new_ticket(self, **kw):
+        categories = request.env['helpdesk.ticket.category']. \
+            search([('active', '=', True)])
+        email = request.env.user.email
+        name = request.env.user.name
+        teams = request.env['helpdesk.ticket.team'].sudo().search([('active', '=', True)])
+        return request.render('helpdesk_mgmt.portal_create_ticket', {
+            'categories': categories, 'email': email, 'name': name, 'teams': teams})
+
+    @http.route('/submitted/ticket', type="http", auth="user", website=True, csrf=True)
+    def submit_ticket(self, **kw):
+        vals = {
+            'partner_name': kw.get('name'),
+            'company_id': http.request.env.user.company_id.id,
+            'category_id': kw.get('category'),
+            'team_id': kw.get('team'),
+            'partner_email': kw.get('email'),
+            'description': kw.get('description'),
+            'name': kw.get('subject'),
+            'attachment_ids': False,
+            'channel_id':
+                request.env['helpdesk.ticket.channel'].
+                sudo().search([('name', '=', 'Web')]).id,
+            'partner_id':
+                request.env['res.partner'].sudo().search([
+                    ('name', '=', kw.get('name')),
+                    ('email', '=', kw.get('email'))]).id
+        }
+        new_ticket = request.env['helpdesk.ticket'].sudo().create(
+            vals)
+        new_ticket.message_subscribe_users(user_ids=request.env.user.id)
+        if kw.get('attachment'):
+            for c_file in request.httprequest.files.getlist('attachment'):
+                data = c_file.read()
+                if c_file.filename:
+                    request.env['ir.attachment'].sudo().create({
+                        'name': c_file.filename,
+                        'datas': base64.b64encode(data),
+                        'datas_fname': c_file.filename,
+                        'res_model': 'helpdesk.ticket',
+                        'res_id': new_ticket.id
+                    })
+        return werkzeug.utils.redirect("/my/c_tickets")
