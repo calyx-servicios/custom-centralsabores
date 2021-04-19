@@ -36,6 +36,7 @@
               <thead>
                 <tr class="active">
                   <th>Empresa</th>
+                  <th>Num Ticket</th>
                   <th>Nombre</th>
                   <th>Categoria</th>
                   <th>Estado</th>
@@ -48,6 +49,9 @@
                 <tr>
                   <td>
                     <t t-esc="ticket.partner_id.name"/>
+                  </td>
+                  <td>
+                    <t t-esc="ticket.number"/>
                   </td>
                   <td>
                     <a t-attf-href="/my/c_ticket/#{ticket.id}">
@@ -79,6 +83,22 @@
         </div>
       </t>
     </template>
+
+    <template id="easy_web.ticket_helpdesk" name=" Ticket teams" inherit_id="helpdesk_mgmt.portal_create_ticket" priority="10">
+      <xpath expr="//div[hasclass('form-group')][3]" position="replace">
+        <div class="form-group">
+          <label class="col-md-3 col-sm-4 control-label" for="team">Equipo</label>
+          <div class="col-md-7 col-sm-8">
+            <select class="form-control" id="team" name="team" required="True">
+              <t t-foreach="teams" t-as="team">
+                <option t-attf-value="#{team.id}"><t t-esc="team.name"/></option>
+              </t>
+            </select>
+          </div>
+        </div>
+      </xpath>
+    </template>
+     
   </data>
 
 </odoo>
