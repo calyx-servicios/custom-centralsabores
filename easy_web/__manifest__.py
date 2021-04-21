@@ -7,7 +7,7 @@
     "maintainers": ["JhoneM"],
     "website": "http://odoo.calyx-cloud.com.ar/",
     "category": "Web",
-    "version": "11.0.1.0.1",
+    "version": "11.0.1.0.2",
     "development_status": "Production/Stable",
     "application": False,
     "installable": True,

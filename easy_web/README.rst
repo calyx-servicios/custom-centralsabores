@@ -69,6 +69,7 @@ Contributors
   * Jhone Mendez
   * Federico Gregori
   * Cristian Paradiso
+  * Andres Andrade
 
 Maintainers
 ~~~~~~~~~~~
