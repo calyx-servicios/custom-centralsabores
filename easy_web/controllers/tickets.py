@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import werkzeug
+import base64
 from odoo import http, _
 from odoo.http import request
 from odoo.addons.portal.controllers.portal import CustomerPortal
@@ -40,8 +41,9 @@ class CustomerPortal(CustomerPortal):
 
         partners = []
 
-        for contacts in partner.portal_partners_ids:
-            partners.append(contacts.partner_portal_id.id)
+        if request.env.user.has_group("easy_web.easy_custom_portal_responsible"):
+            for contacts in partner.portal_partners_ids:
+                partners.append(contacts.partner_portal_id.id)
 
         partners.append(partner.id)
 
