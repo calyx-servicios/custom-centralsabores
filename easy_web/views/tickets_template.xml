@@ -1,10 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <data>
+  <data noupdate="0">
 
     <record id="helpdesk_mgmt.portal_layout" model="ir.ui.view">
       <field name="active">False</field>
     </record>
+
+    <!-- *****************************************RULES***************************************** -->
+
+    <function name="write" model="ir.model.data">
+      <function name="search" model="ir.model.data">
+        <value eval="[('module', '=', 'helpdesk_mgmt'), ('name', '=', 'helpdesk_ticket_comp_rule')]" />
+      </function>
+      <value eval="{'noupdate': False}" />
+    </function>
+
+    <record id="helpdesk_mgmt.helpdesk_ticket_comp_rule" model="ir.rule">
+      <field name="perm_write">False</field>
+      <field name="perm_create">False</field>
+    </record>
+
+    <function name="write" model="ir.model.data">
+      <function name="search" model="ir.model.data">
+        <value eval="[('module', '=', 'helpdesk_mgmt'), ('name', '=', 'helpdesk_ticket_comp_rule')]" />
+      </function>
+      <value eval="{'noupdate': True}" />
+    </function>
+
+    <!-- *****************************************RULES***************************************** -->
+
 
     <template id="portal_layout" name="Portal layout: ticket menu entry" inherit_id="portal.portal_layout" priority="50">
       <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
@@ -91,14 +115,16 @@
           <div class="col-md-7 col-sm-8">
             <select class="form-control" id="team" name="team" required="True">
               <t t-foreach="teams" t-as="team">
-                <option t-attf-value="#{team.id}"><t t-esc="team.name"/></option>
+                <option t-attf-value="#{team.id}">
+                  <t t-esc="team.name"/>
+                </option>
               </t>
             </select>
           </div>
         </div>
       </xpath>
     </template>
-     
+
   </data>
 
 </odoo>
