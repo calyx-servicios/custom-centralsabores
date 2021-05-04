@@ -27,6 +27,26 @@
       <value eval="{'noupdate': True}" />
     </function>
 
+
+    <function name="write" model="ir.model.data">
+      <function name="search" model="ir.model.data">
+        <value eval="[('module', '=', 'helpdesk_mgmt'), ('name', '=', 'helpdesk_ticket_rule_portal')]" />
+      </function>
+      <value eval="{'noupdate': False}" />
+    </function>
+
+    <record id="helpdesk_mgmt.helpdesk_ticket_rule_portal" model="ir.rule">
+      <field name="perm_write">False</field>
+      <field name="perm_create">False</field>
+    </record>
+
+    <function name="write" model="ir.model.data">
+      <function name="search" model="ir.model.data">
+        <value eval="[('module', '=', 'helpdesk_mgmt'), ('name', '=', 'helpdesk_ticket_rule_portal')]" />
+      </function>
+      <value eval="{'noupdate': True}" />
+    </function>
+
     <!-- *****************************************RULES***************************************** -->
 
 
