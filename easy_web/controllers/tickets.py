@@ -41,9 +41,9 @@ class CustomerPortal(CustomerPortal):
 
         partners = []
 
-        if request.env.user.has_group("easy_web.easy_custom_portal_responsible"):
-            for contacts in partner.portal_partners_ids:
-                partners.append(contacts.partner_portal_id.id)
+
+        for contacts in partner.portal_partners_ids:
+            partners.append(contacts.partner_portal_id.id)
 
         partners.append(partner.id)
 
