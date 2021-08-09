@@ -152,7 +152,7 @@ class CustomerPortal(CustomerPortal):
         ticket_count = HelpdesTicket.sudo().search_count(domain)
         # pager
         pager = portal_pager(
-            url="/my/tickets",
+            url="/my/c_tickets",
             url_args={},
             total=ticket_count,
             page=page,
