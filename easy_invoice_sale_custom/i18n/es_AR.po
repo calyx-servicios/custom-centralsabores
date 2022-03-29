@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-10 18:43+0000\n"
-"PO-Revision-Date: 2020-02-10 18:43+0000\n"
+"POT-Creation-Date: 2022-03-29 14:24+0000\n"
+"PO-Revision-Date: 2022-03-29 14:24+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -31,6 +31,11 @@ msgid "Contact"
 msgstr "Contacto"
 
 #. module: easy_invoice_sale_custom
+#: selection:sale.order,delivery_type:0
+msgid "Additional"
+msgstr "Adicional"
+
+#. module: easy_invoice_sale_custom
 #: model:ir.ui.view,arch_db:easy_invoice_sale_custom.base_sale_order_form_inherit
 msgid "Create and Print Easy Invoice"
 msgstr "Crear e Imprimir Factura Rápida"
@@ -42,9 +47,25 @@ msgid "Default Pricelist Sale"
 msgstr "Default Lista de Precios"
 
 #. module: easy_invoice_sale_custom
+#: model:ir.model.fields,field_description:easy_invoice_sale_custom.field_sale_order_line_delivered_qty
+msgid "Delivered Quantity"
+msgstr "Cantidad Entregada"
+
+#. module: easy_invoice_sale_custom
 #: model:ir.ui.view,arch_db:easy_invoice_sale_custom.easy_payment_out_group_form_cc_inherit
 msgid "Diferencia"
 msgstr "Diferencia"
+
+#. module: easy_invoice_sale_custom
+#: model:ir.model.fields,field_description:easy_invoice_sale_custom.field_sale_order_delivery_type
+msgid "Delivery type"
+msgstr "Tipo de Entrega"
+
+#. module: easy_invoice_sale_custom
+#: code:addons/easy_invoice_sale_custom/models/sale_order.py:17
+#, python-format
+msgid "Delivery type is required"
+msgstr "Debe indicar el tipo de entrega"
 
 #. module: easy_invoice_sale_custom
 #: model:ir.model,name:easy_invoice_sale_custom.model_easy_invoice
@@ -72,6 +93,16 @@ msgid "List Product"
 msgstr "Lista de Productos"
 
 #. module: easy_invoice_sale_custom
+#: model:ir.model,name:easy_invoice_sale_custom.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Linea de Factura"
+
+#. module: easy_invoice_sale_custom
+#: selection:sale.order,delivery_type:0
+msgid "Normal"
+msgstr "Normal"
+
+#. module: easy_invoice_sale_custom
 #: model:ir.ui.view,arch_db:easy_invoice_sale_custom.easy_payment_out_group_form_inherit2
 msgid "Other Information"
 msgstr "Otra Información"
@@ -84,6 +115,17 @@ msgid "Pricelist"
 msgstr "Tarifa"
 
 #. module: easy_invoice_sale_custom
+#: model:ir.model.fields,field_description:easy_invoice_sale_custom.field_account_invoice_line_unit_detail
+#: model:ir.model.fields,field_description:easy_invoice_sale_custom.field_sale_order_line_unit_detail
+msgid "Pedido Original"
+msgstr "Pedido Original"
+
+#. module: easy_invoice_sale_custom
+#: selection:sale.order,delivery_type:0
+msgid "Pending"
+msgstr "Pendiente"
+
+#. module: easy_invoice_sale_custom
 #: model:ir.model,name:easy_invoice_sale_custom.model_sale_order
 msgid "Quotation"
 msgstr "Presupuesto"
@@ -94,7 +136,18 @@ msgid "Recibos"
 msgstr "Recibos"
 
 #. module: easy_invoice_sale_custom
+#: code:addons/easy_invoice_sale_custom/models/easy_invoice.py:52
+#, python-format
+msgid "Rectificative"
+msgstr "Rectificativa"
+
+#. module: easy_invoice_sale_custom
 #: model:ir.model,name:easy_invoice_sale_custom.model_sale_order_line
 msgid "Sales Order Line"
 msgstr "Línea de orden de ventas"
 
+#. module: easy_invoice_sale_custom
+#: code:addons/easy_invoice_sale_custom/models/easy_payment_group.py:86
+#, python-format
+msgid "You cant not Prepare a Group with Amount Money in 0 or Negative.-"
+msgstr "No puede preparar un grupo con una cantidad de dinero en 0 o negativa.-"
