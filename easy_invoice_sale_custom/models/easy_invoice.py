@@ -66,7 +66,7 @@ class EasyInvoiceLine(models.Model):
     _inherit = "easy.invoice.line"
 
 
-    unit_detail = fields.Float('Detalle Unidad', digits=(16,2))
+    unit_detail = fields.Float('Pedido Original', digits=(16,2))
 
 
     # @api.multi

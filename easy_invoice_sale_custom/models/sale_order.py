@@ -5,6 +5,19 @@ from odoo.exceptions import ValidationError
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
+    delivery_type = fields.Selection(
+        [("additional", "Additional"), ("normal", "Normal"), ("pending", "Pending")],
+        string="Delivery type",
+        store=True,
+    )
+
+    @api.multi
+    def action_confirm(self):
+        if not self.delivery_type:
+            raise ValidationError(_("Delivery type is required"))
+        else:
+            super(SaleOrder, self).action_confirm()
+
     @api.multi
     def write(self, vals):
         result = super(SaleOrder, self).write(vals)
@@ -36,8 +49,9 @@ class SaleOrder(models.Model):
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
-    unit_detail = fields.Float('Detalle Unidad', digits=(16,2))
+    unit_detail = fields.Float('Pedido Original', digits=(16,2))
     
+    delivered_qty = fields.Float('Delivered Quantity', default = 0, store = True)
     def _prepare_line_easy_invoice(self, invoice_created):
         """We add the unit_detail field to the dictionary of values ​​
            so that it loads it in the easy invoice """

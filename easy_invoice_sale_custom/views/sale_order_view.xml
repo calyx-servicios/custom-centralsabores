@@ -38,6 +38,11 @@
 
             <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']"  position="after">
                 <field name="unit_detail"/>
+                <field name="delivered_qty"/>
+            </xpath>
+
+            <xpath expr="//field[@name='payment_term_id']"  position="after">
+                <field name="delivery_type"/>
             </xpath>
 
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom']"  position="attributes">
@@ -165,5 +170,3 @@
  
   </data>
 </odoo>
-
-
