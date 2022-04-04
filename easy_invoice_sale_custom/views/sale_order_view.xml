@@ -20,7 +20,7 @@
           <!--   OCULTAR LOS CAMPOS Q NO SON REQUERIDOS  context.get('uid', False) not in [1] -->
             <xpath expr="//button[@name='action_quotation_send']" position="attributes">
                 <attribute name="invisible">context.get('uid', False) not in [1]</attribute>
-            </xpath>
+            </xpath>    
             <xpath expr="//button[@name='print_quotation']" position="attributes">
                 <attribute name="invisible">context.get('uid', False) not in [1]</attribute>
             </xpath>
@@ -36,11 +36,8 @@
                 <attribute name="readonly">context.get('uid', False) not in [1]</attribute>
             </xpath>
 
-            <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']"  position="after">
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']"  position="after">
                 <field name="unit_detail"/>
-            </xpath>
-
-            <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']"  position="after">
                 <field name="delivered_qty"/>
             </xpath>
 
