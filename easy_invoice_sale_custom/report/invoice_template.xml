@@ -184,7 +184,7 @@
                     <tr class="border-black" style="border: 2px solid black;">
                         <th style="width: 55%;">DETALLE</th>
                         <th class="text-right">CANTIDAD</th>
-                        <th class="text-right" style="width: 25%;">DETALLE UNIDAD</th>                        
+                        <th class="text-right" style="width: 25%;">PEDIDO ORIGINAL</th>                        
                         <th class="text-right">UNITARIO</th>
                         <th class="text-right" groups="sale.group_show_price_subtotal">SUBTOTAL</th>
 
