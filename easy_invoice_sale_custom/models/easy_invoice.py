@@ -70,7 +70,11 @@ class EasyInvoiceLine(models.Model):
 
     unit_detail = fields.Float('Pedido Original', digits=(16,2))
     delivered_qty = fields.Float('Delivered Quantity', default = 0, store = True)
-    delivery_type = fields.Selection(related='order_id.delivery_type', store=True)
+    delivery_type = fields.Selection(
+        [("additional", "Additional"), ("normal", "Normal"), ("pending", "Pending")],
+        string="Delivery type",
+        store=True,
+    )
 
     # @api.multi
     # def write(self,vals):
