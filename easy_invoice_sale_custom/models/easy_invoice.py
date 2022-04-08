@@ -43,6 +43,8 @@ class EasyInvoice(models.Model):
                     'currency_id': line_obj.currency_id.id,
                     'company_id': line_obj.company_id.id,
                     'unit_detail': line_obj.unit_detail,
+                    'delivery_type' : line_obj.delivery_type,
+                    'delivered_qty' : line_obj.delivered_qty,
                 }
                 invoice_line_created = self.env[
                     'easy.invoice.line'].create(vals)
@@ -67,7 +69,8 @@ class EasyInvoiceLine(models.Model):
 
 
     unit_detail = fields.Float('Pedido Original', digits=(16,2))
-
+    delivered_qty = fields.Float('Delivered Quantity', default = 0, store = True)
+    delivery_type = fields.Selection(related='order_id.delivery_type', store=True)
 
     # @api.multi
     # def write(self,vals):
