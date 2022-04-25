@@ -52,10 +52,12 @@ class SaleOrderLine(models.Model):
     unit_detail = fields.Float('Pedido Original', digits=(16,2))
     
     delivered_qty = fields.Float('Delivered Quantity', default = 0, store = True)
+    delivery_type = fields.Selection(related='order_id.delivery_type', store=True)
     def _prepare_line_easy_invoice(self, invoice_created):
         """We add the unit_detail field to the dictionary of values ​​
            so that it loads it in the easy invoice """
         res = super(SaleOrderLine, self)._prepare_line_easy_invoice(invoice_created)
         res['unit_detail'] = self.unit_detail
-        
+        res['delivered_qty'] = self.delivered_qty
+        res['delivery_type'] = self.delivery_type
         return res
