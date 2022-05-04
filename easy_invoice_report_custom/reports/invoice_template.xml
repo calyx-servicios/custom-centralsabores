@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <template id="external_layout_standard_inherit" inherit_id="easy_invoice.external_layout_standard">
+
+        <xpath expr="//table[@class='table table-condensed']" position="replace">
+
+            <table class="table table-condensed" style="width:100%;border-collapse:collapse;">
+                <thead>
+                    <tr class="border-black" style="border: 2px solid black;">
+                        <th style="width: 55%;">DETALLE</th>
+                        <th class="text-right">CANTIDAD</th>
+                        <th class="text-right">CANTIDAD ENTREGADA</th>
+                        <th class="text-right">UNITARIO</th>
+                        <th class="text-right" groups="sale.group_show_price_subtotal">SUBTOTAL</th>
+
+                    </tr>
+                </thead>
+            <tbody class="sale_tbody" style="width:100%;">
+                    <t t-foreach="doc.invoice_line_ids" t-as="l">
+                            <tr style="height:80%;">
+                                <td style="width: 55%;">[<span t-field="l.product_id.default_code"/>]<span style="margin-left:2px;" t-field="l.product_id.name"/></td>
+
+                                <td class="text-right">
+                                    <span t-field="l.quantity" style="font-size:11px;"/>
+                                    <span t-field="l.uom_id" style="font-size:7px;" groups="product.group_uom"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="l.price_unit"/>
+                                </td>
+
+                                <td class="text-right" groups="sale.group_show_price_subtotal">
+                                    <span t-field="l.price_subtotal_signed"
+                                        t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                                </td>
+
+                            </tr>
+                        </t>
+                </tbody>
+            </table>
+
+        </xpath>
+
+    </template>
+
+
+</odoo>
