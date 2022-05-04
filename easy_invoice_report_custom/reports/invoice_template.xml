@@ -4,7 +4,7 @@
 
     <template id="external_layout_standard_inherit" inherit_id="easy_invoice.external_layout_standard">
 
-        <xpath expr="//table[@class='table table-condensed']" position="replace">
+        <xpath expr="//table[1]" position="replace">
 
             <table class="table table-condensed" style="width:100%;border-collapse:collapse;">
                 <thead>
