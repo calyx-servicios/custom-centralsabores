@@ -13,7 +13,7 @@
     'external_dependencies': {
     },
     'data': [
-        'reports/invoice_templatet.xml',
+        'reports/invoice_template.xml',
     ],
     'demo': [
     ],
