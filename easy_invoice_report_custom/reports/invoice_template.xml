@@ -2,7 +2,7 @@
 <odoo>
 
 
-    <template id="external_layout_standard_inherit" inherit_id="easy_invoice.external_layout_standard">
+    <template id="report_easy_middle_page_inherit" inherit_id="easy_invoice.report_easy_middle_page">
 
         <xpath expr="//table[1]" position="replace">
 
