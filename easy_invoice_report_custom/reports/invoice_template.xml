@@ -11,7 +11,7 @@
                     <tr class="border-black" style="border: 2px solid black;">
                         <th style="width: 55%;">DETALLE</th>
                         <th class="text-right">CANTIDAD</th>
-                        <th class="text-right">CANTIDAD PEDIDA</th>
+                        <th class="text-right">CANTIDAD FACTURADA</th>
                         <th class="text-right">PEDIDO ORIGINAL</th>
                         <th class="text-right">CANTIDAD ENTREGADA</th>
                         <th class="text-right">UNITARIO</th>
@@ -29,7 +29,13 @@
                                     <span t-field="l.uom_id" style="font-size:7px;" groups="product.group_uom"/>
                                 </td>
                                 <td class="text-right">
+                                    <span t-field="l.product_uom_qty"/>
+                                </td>
+                                <td class="text-right">
                                     <span t-field="l.unit_detail"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="l.delivered_qty"/>
                                 </td>
                                 <td class="text-right">
                                     <span t-field="l.price_unit"/>
