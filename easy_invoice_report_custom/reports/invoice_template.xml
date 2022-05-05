@@ -28,15 +28,15 @@
                                     <span t-field="l.quantity" style="font-size:11px;"/>
                                     <span t-field="l.uom_id" style="font-size:7px;" groups="product.group_uom"/>
                                 </td>
-                                <!-- <td class="text-right">
+                                <td class="text-right">
                                     <span t-field="l.product_uom_qty"/>
-                                </td> -->
+                                </td>
                                 <td class="text-right">
                                     <span t-field="l.unit_detail"/>
                                 </td>
-                                <!-- <td class="text-right">
+                                <td class="text-right">
                                     <span t-field="l.delivered_qty"/>
-                                </td> -->
+                                </td>
                                 <td class="text-right">
                                     <span t-field="l.price_unit"/>
                                 </td>
