@@ -48,7 +48,7 @@ msgstr "Linea de Factura"
 #. module: easy_invoice_report_custom
 #: model:ir.ui.view,arch_db:easy_invoice_report_custom.view_order_form_inherit
 msgid "Invoiced Amount"
-msgstr "Cantidad Facturada"
+msgstr "Ctdad Facturada "
 
 #. module: easy_invoice_report_custom
 #: model:ir.ui.view,arch_db:easy_invoice_report_custom.report_easy_middle_page_inherit
@@ -68,4 +68,4 @@ msgstr "UNITARIO"
 #. module: easy_invoice_report_custom
 #: model:ir.model.fields,field_description:easy_invoice_report_custom.field_easy_invoice_line_product_uom_qty
 msgid "invoiced amount"
-msgstr "Cantidad Facturada"
+msgstr "Ctdad Facturada "
