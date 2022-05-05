@@ -14,7 +14,7 @@
     },
     'data': [
         'reports/invoice_template.xml',
-        'views/easy_invoice_view.xml',
+        'view/easy_invoice_view.xml',
     ],
     'demo': [
     ],
