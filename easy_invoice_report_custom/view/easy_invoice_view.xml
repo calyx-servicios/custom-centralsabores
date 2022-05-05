@@ -5,7 +5,7 @@
             <field name="name">easy.invoice.customer.form</field>
             <field name="inherit_id" ref="easy_invoice.easy_invoice_customer_form" />
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='invoice_line_ids']/tree//field[@name='invoice_line_ids']" position="after">
+                <xpath expr="//field[@name='invoice_line_ids']/tree//field[@name='quantity']" position="after">
                     <field name="product_uom_qty"/>
                     <field name="delivered_qty"/>
                 </xpath>
