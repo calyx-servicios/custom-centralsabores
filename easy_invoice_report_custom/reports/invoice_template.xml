@@ -10,7 +10,6 @@
                 <thead>
                     <tr class="border-black" style="border: 2px solid black;">
                         <th style="width: 55%;">DETALLE</th>
-                        <th class="text-right">CANTIDAD</th>
                         <th class="text-right">CANTIDAD FACTURADA</th>
                         <th class="text-right">PEDIDO ORIGINAL</th>
                         <th class="text-right">CANTIDAD ENTREGADA</th>
@@ -27,9 +26,6 @@
                                 <td class="text-right">
                                     <span t-field="l.quantity" style="font-size:11px;"/>
                                     <span t-field="l.uom_id" style="font-size:7px;" groups="product.group_uom"/>
-                                </td>
-                                <td class="text-right">
-                                    <span t-field="l.product_uom_qty"/>
                                 </td>
                                 <td class="text-right">
                                     <span t-field="l.unit_detail"/>
