@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <record id="easy_invoice_customer_form_inherit" model="ir.ui.view">
+            <field name="model">easy.invoice</field>
+            <field name="name">easy.invoice.customer.form</field>
+            <field name="inherit_id" ref="easy_invoice.easy_invoice_customer_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line_ids']/tree//field[@name='quantity']" position="after">
+                    <field name="product_uom_qty" invisible="1"/>
+                    <field name="delivered_qty" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
