@@ -151,3 +151,10 @@ msgstr "Línea de orden de ventas"
 #, python-format
 msgid "You cant not Prepare a Group with Amount Money in 0 or Negative.-"
 msgstr "No puede preparar un grupo con una cantidad de dinero en 0 o negativa.-"
+
+#. module: easy_invoice_sale_custom
+#: selection:account.invoice.line,delivery_type:0
+#: selection:easy.invoice.line,delivery_type:0
+#: selection:sale.order,delivery_type:0
+msgid "Birthday cake"
+msgstr "Torta de cumpleaños"
