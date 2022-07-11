@@ -6,7 +6,7 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     delivery_type = fields.Selection(
-        [("additional", "Additional"), ("normal", "Normal"), ("pending", "Pending")],
+        [("additional", "Additional"), ("normal", "Normal"), ("pending", "Pending"), ("birthday_cake", "Birthday cake")],
         string="Delivery type",
         store=True,
     )
