@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record model="res.groups" id="group_product_pricelist_permision">
+            <field name="category_id" ref="price_security.module_prices_management"/>
+            <field name="name">Gestionar listas de precios en productos</field>
+        </record>
+    </data>
+</odoo>
