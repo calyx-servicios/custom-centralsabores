@@ -1,0 +1,28 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_pricelist_permision_custom
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0-20210922\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-08-10 20:00+0000\n"
+"PO-Revision-Date: 2023-08-10 17:03-0300\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"Language: es_AR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.0.1\n"
+
+#. module: product_pricelist_permision_custom
+#: model:res.groups,name:product_pricelist_permision_custom.group_product_pricelist_permision
+msgid "Manage product price lists"
+msgstr "Gestionar listas de precios en productos"
+
+#. module: product_pricelist_permision_custom
+#: model:ir.model,name:product_pricelist_permision_custom.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
