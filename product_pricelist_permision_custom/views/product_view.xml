@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="product_pricelist_quit_permision_form_view" model="ir.ui.view">
+            <field name="name">product_pricelist_quit_permision_form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <field name="item_ids" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="product_pricelist_permision_form_view" model="ir.ui.view">
+            <field name="name">product_pricelist_permision_form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product_pricelist_permision_custom.product_pricelist_quit_permision_form_view"/>
+            <field name="groups_id" eval="[(4, ref('product_pricelist_permision_custom.group_product_pricelist_permision'))]"/>
+            <field name="arch" type="xml">
+                <field name="item_ids" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
