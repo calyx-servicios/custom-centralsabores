@@ -21,8 +21,9 @@ class SaleOrder(models.Model):
     @api.multi
     def write(self, vals):
         result = super(SaleOrder, self).write(vals)
-        for line in self.order_line:
-            line.product_id_change()
+        if 'order_line' in vals:
+            for line in self.order_line:
+                line.product_id_change()
         return result
 
     # @api.onchange('partner_id')
