@@ -11,7 +11,7 @@
                         attrs="{'invisible': ['|', '|', ('state', '!=', 'draft'), ('validation_type', '=', False), ('date_invoice', '=', False)]}" 
                         string="Check rate" groups="account.group_account_invoice"/>
                 </xpath>
-                <xpath expr="//field[@name='afip_fce_es_anulacion']" position="after">
+                <xpath expr="//field[@name='afip_asoc_period_start']" position="after">
                     <field name='l10n_ar_payment_foreign_currency'/>
                 </xpath>
 
