@@ -8,6 +8,9 @@ from odoo.addons.portal.controllers.portal import CustomerPortal
 from odoo.addons.portal.controllers.portal import pager as portal_pager
 
 from odoo.osv.expression import OR
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class CustomerPortal(CustomerPortal):
@@ -161,6 +164,9 @@ class CustomerPortal(CustomerPortal):
             order=order,
             limit=self._items_per_page,
             offset=pager["offset"],
+        )
+        _logger.debug(
+            ">>>>=====moves_in_period filter:%r=====<<<<", tickets
         )
         values.update(
             {

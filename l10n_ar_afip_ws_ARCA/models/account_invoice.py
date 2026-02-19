@@ -676,3 +676,5 @@ class AccountInvoice(models.Model):
 
     # def pyafipws_get_currency_rate(self, ws):
     #     return ws.ParamGetCotizacion(self.currency_id.l10n_ar_afip_code)
+
+    
