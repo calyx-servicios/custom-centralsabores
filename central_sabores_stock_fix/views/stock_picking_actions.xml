@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="action_stock_picking_suppress_moves_force" model="ir.actions.server">
+            <field name="name">Suprimir moves (forzar)</field>
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_type">action</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_suppress_moves_force()</field>
+        </record>
+
+        <record id="action_stock_picking_suppress_force" model="ir.actions.server">
+            <field name="name">Suprimir (forzar)</field>
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_type">action</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_suppress_force()</field>
+        </record>
+    </data>
+</odoo>
