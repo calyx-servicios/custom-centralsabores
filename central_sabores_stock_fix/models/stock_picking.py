@@ -53,7 +53,6 @@ class StockPicking(models.Model):
     def action_suppress_force(self):
         reusable_delete_model = self.env["reusable.sql.delete"].sudo()
         deleted_picking_ids = []
-        deleted_move_ids = []
         failed_ids = []
 
         for picking in self:
@@ -61,22 +60,7 @@ class StockPicking(models.Model):
                 failed_ids.append(picking.id)
                 continue
 
-            move_ids = picking.move_lines.ids
-
             try:
-                if move_ids:
-                    try:
-                        reusable_delete_model.delete_records("stock.move", "picking_id", picking.id)
-                    except UserError as err:
-                        message = str(err)
-                        if "Se eliminaron los siguientes IDs" in message:
-                            deleted_move_ids.extend(move_ids)
-                        elif "No se encontraron registros" in message:
-                            pass
-                        else:
-                            failed_ids.append(picking.id)
-                            continue
-
                 reusable_delete_model.delete_records("stock.picking", "id", picking.id)
             except UserError as err:
                 # El modulo reutilizable usa UserError tambien para informar exito.
@@ -93,19 +77,10 @@ class StockPicking(models.Model):
                 % ", ".join(map(str, failed_ids))
             )
 
-        if deleted_picking_ids or deleted_move_ids:
-            parts = []
-            if deleted_move_ids:
-                parts.append(
-                    _("Modelo: stock.move, ID: %s") % ", ".join(map(str, deleted_move_ids))
-                )
-            if deleted_picking_ids:
-                parts.append(
-                    _("Modelo: stock.picking, ID: %s")
-                    % ", ".join(map(str, deleted_picking_ids))
-                )
+        if deleted_picking_ids:
             raise UserError(
-                _("Registros suprimidos. %s") % " | ".join(parts)
+                _("Registros suprimidos. Modelo: stock.picking, ID: %s")
+                % ", ".join(map(str, deleted_picking_ids))
             )
 
         return True
