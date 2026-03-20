@@ -1,22 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
-        <record id="action_stock_picking_suppress_moves_force" model="ir.actions.server">
-            <field name="name">Suprimir moves (forzar)</field>
-            <field name="model_id" ref="stock.model_stock_picking"/>
-            <field name="binding_model_id" ref="stock.model_stock_picking"/>
-            <field name="binding_type">action</field>
-            <field name="state">code</field>
-            <field name="code">action = records.action_suppress_moves_force()</field>
-        </record>
-
         <record id="action_stock_picking_suppress_force" model="ir.actions.server">
-            <field name="name">Suprimir (forzar)</field>
+            <field name="name">Suprimir picking + moves (forzar)</field>
             <field name="model_id" ref="stock.model_stock_picking"/>
             <field name="binding_model_id" ref="stock.model_stock_picking"/>
             <field name="binding_type">action</field>
             <field name="state">code</field>
             <field name="code">action = records.action_suppress_force()</field>
+        </record>
+
+        <record id="view_picking_form_force_unlink_toggle" model="ir.ui.view">
+            <field name="name">stock.picking.form.force.unlink.toggle</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="action_enable_force_unlink"
+                            type="object"
+                            string="Activar forzado"
+                            class="oe_highlight"
+                            attrs="{'invisible': ['|', ('force_unlink_enabled', '=', True), ('state', 'not in', ('waiting', 'assigned'))]}"/>
+                    <button name="action_disable_force_unlink"
+                            type="object"
+                            string="Desactivar forzado"
+                            attrs="{'invisible': ['|', ('force_unlink_enabled', '=', False), ('state', 'not in', ('waiting', 'assigned'))]}"/>
+                </xpath>
+                <xpath expr="//field[@name='id']" position="after">
+                    <field name="force_unlink_enabled" readonly="1"/>
+                </xpath>
+            </field>
         </record>
     </data>
 </odoo>
